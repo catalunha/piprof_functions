@@ -15,7 +15,8 @@ export default class DatabaseReferences {
   public static simulacaoRef = databaseReferences.collection('Simulacao');
   public static tarefaRef = databaseReferences.collection('Tarefa');
 
-  
+  public static TurmaCollection = databaseReferences.collection('Turma');
+
   // public static questionarioAplicadoRef = databaseReferences.collection('QuestionarioAplicado');
   // public static PerguntaAplicadaRef = databaseReferences.collection('PerguntaAplicada');
 
@@ -36,7 +37,7 @@ export default class DatabaseReferences {
   // public static controleAcaoRef = databaseReferences.collection('ControleAcao');
 
 
-  public static atualizarNomeDeCollectionEmOutrasCollections(collectionNome: any, whereRefId: any, novaRefId: any, updateJsonData: any) {
+  public static updateQueryDocumentNoCampoXComValorX(collectionNome: any, whereRefId: any, novaRefId: any, updateJsonData: any) {
     this.db.collection(collectionNome).where(whereRefId, '==', novaRefId).get().then(async (dadosFiltrado: any) => {
       if (dadosFiltrado.docs.length > 0) {
         dadosFiltrado.docs.forEach(async (dadoFiltrado: any, index_filt: any, array_filt: any) => {
@@ -46,7 +47,7 @@ export default class DatabaseReferences {
         })
       }
     }).catch((err: any) => {
-      console.log('Error getting documents : atualizarNomeUsuarioEmCollection ', err)
+      console.log('Error getting documents : updateUsuarioCampoXEmOutrasCollections ', err)
     })
 
   }
@@ -85,20 +86,20 @@ export default class DatabaseReferences {
 
   // }
 
-  // public static apagarDocDeCollectionEmOutrasCollections(collectionNome: any, whereRefId: any, novaRefId: any) {
-  //     this.db.collection(collectionNome).where(whereRefId, '==', novaRefId).get().then(async (dadosFiltrado: any) => {
-  //         if (dadosFiltrado.docs.length > 0) {
-  //             dadosFiltrado.docs.forEach(async (dadoFiltrado: any, index_filt: any, array_filt: any) => {
-  //                 this.db.collection(collectionNome).doc(dadoFiltrado.id).delete().then(() => {
-  //                     console.log("DELETAR DOC NA COLECTION " + collectionNome + " >> " + dadoFiltrado.id);
-  //                 })
-  //             })
-  //         }
-  //     }).catch((err: any) => {
-  //         console.log('Error getting documents : apagarDocDeCollectionEmOutrasCollections ', err)
-  //     })
+  public static onDeleteQueryDocument(collectionNome: any, whereRefId: any, novaRefId: any) {
+      this.db.collection(collectionNome).where(whereRefId, '==', novaRefId).get().then(async (dadosFiltrado: any) => {
+          if (dadosFiltrado.docs.length > 0) {
+              dadosFiltrado.docs.forEach(async (dadoFiltrado: any, index_filt: any, array_filt: any) => {
+                  this.db.collection(collectionNome).doc(dadoFiltrado.id).delete().then(() => {
+                      console.log("DELETAR DOC NA COLECTION " + collectionNome + " >> " + dadoFiltrado.id);
+                  })
+              })
+          }
+      }).catch((err: any) => {
+          console.log('Error getting documents : apagarDocDeCollectionEmOutrasCollections ', err)
+      })
 
-  // }
+  }
 
   public static criarUsuario(data: any) {
     admin.auth().createUser({

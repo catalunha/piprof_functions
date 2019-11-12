@@ -63,7 +63,7 @@ export function AvaliacaoOnDelete(docSnapShot: any) {
   // Questao
   DatabaseReferences.onDeleteDocument('Questao', 'avaliacao.id', docSnapShotId)
   // Tarefa
-  DatabaseReferences.onDeleteDocument('Tarefa', 'avaliacao.id', docSnapShotId)
+  // DatabaseReferences.onDeleteDocument('Tarefa', 'avaliacao.id', docSnapShotId)
   return 0;
 }
 

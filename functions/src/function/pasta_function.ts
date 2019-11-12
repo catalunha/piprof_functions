@@ -23,3 +23,13 @@ export function PastaOnUpdate(docSnapShot: any) {
 
 
 }
+
+
+
+export function PastaOnDelete(docSnapShot: any) {
+  const docSnapShotId = docSnapShot.id;
+  // Tarefa
+  DatabaseReferences.onDeleteDocument('Situacao', 'pasta.id', docSnapShotId)
+  return 0;
+}
+

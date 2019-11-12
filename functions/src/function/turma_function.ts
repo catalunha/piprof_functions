@@ -37,9 +37,9 @@ export function TurmaOnDelete(docSnapShot: any) {
   // Avaliacao
   DatabaseReferences.onDeleteDocument('Avaliacao', 'turma.id', docSnapShotId)
   // Questao
-  DatabaseReferences.onDeleteDocument('Questao', 'turma.id', docSnapShotId)
+  // DatabaseReferences.onDeleteDocument('Questao', 'turma.id', docSnapShotId)
   // Tarefa
-  DatabaseReferences.onDeleteDocument('Tarefa', 'turma.id', docSnapShotId)
+  // DatabaseReferences.onDeleteDocument('Tarefa', 'turma.id', docSnapShotId)
   // Encontro
   DatabaseReferences.onDeleteDocument('Encontro', 'turma.id', docSnapShotId)
   return 0;

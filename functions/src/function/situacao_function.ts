@@ -18,10 +18,7 @@ export function SituacaoOnUpdate(docSnapShot: any) {
   } else {
     console.log("Situacao.Nome NAO alterado.")
   }
-
   return 0
-
-
 }
 
 export function SituacaoOnDelete(docSnapShot: any) {

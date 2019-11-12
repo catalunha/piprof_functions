@@ -92,6 +92,9 @@
 - Pasta.nome
   - Situacao
 
+## PastaOnDelete
+- Situacao
+- Simulacao
 
 
 # Situacao

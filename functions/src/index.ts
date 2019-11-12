@@ -36,6 +36,7 @@ exports.QuestaoOnDelete = functions.firestore.document('Questao/{questaoId}').on
 // Pasta
 import * as pastaFunction from './function/pasta_function';
 exports.PastaOnUpdate = functions.firestore.document('Pasta/{pastaId}').onUpdate(pastaFunction.PastaOnUpdate);
+exports.PastaOnDelete = functions.firestore.document('Pasta/{pastaId}').onDelete(pastaFunction.PastaOnDelete);
 
 // Situacao
 import * as situacaoFunction from './function/situacao_function';

@@ -14,13 +14,13 @@ export function TurmaOnUpdate(docSnapShot: any) {
   if (docSnapShotBeforeData.nome != docSnapShotAfterData.nome) {
     console.log("Turma.Nome alterado. Atualizado nas demais collections")
     //Avaliacao
-    DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Avaliacao', 'turma.id', docSnapShotId, { 'turma.nome': docSnapShotAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Avaliacao', 'turma.id', docSnapShotId, { 'turma.nome': docSnapShotAfterData.nome })
     //Questao
-    DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Questao', 'turma.id', docSnapShotId, { 'turma.nome': docSnapShotAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Questao', 'turma.id', docSnapShotId, { 'turma.nome': docSnapShotAfterData.nome })
     //Tarefa
-    DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Tarefa', 'turma.id', docSnapShotId, { 'turma.nome': docSnapShotAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'turma.id', docSnapShotId, { 'turma.nome': docSnapShotAfterData.nome })
     //Encontro
-    DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Encontro', 'turma.id', docSnapShotId, { 'turma.nome': docSnapShotAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Encontro', 'turma.id', docSnapShotId, { 'turma.nome': docSnapShotAfterData.nome })
   } else {
     console.log("Turma.Nome NAO alterado.")
   }
@@ -29,3 +29,19 @@ export function TurmaOnUpdate(docSnapShot: any) {
 
 
 }
+
+
+
+export function TurmaOnDelete(docSnapShot: any) {
+  const docSnapShotId = docSnapShot.id;
+  // Avaliacao
+  DatabaseReferences.onDeleteDocument('Avaliacao', 'turma.id', docSnapShotId)
+  // Questao
+  DatabaseReferences.onDeleteDocument('Questao', 'turma.id', docSnapShotId)
+  // Tarefa
+  DatabaseReferences.onDeleteDocument('Tarefa', 'turma.id', docSnapShotId)
+  // Encontro
+  DatabaseReferences.onDeleteDocument('Encontro', 'turma.id', docSnapShotId)
+  return 0;
+}
+

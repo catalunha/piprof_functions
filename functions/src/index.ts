@@ -21,6 +21,7 @@ exports.UsuarioOnUpdate = functions.firestore.document('Usuario/{usuarioId}').on
 // Turma
 import * as turmaFunction from './function/turma_function';
 exports.TurmaOnUpdate = functions.firestore.document('Turma/{turmaId}').onUpdate(turmaFunction.TurmaOnUpdate);
+exports.TurmaOnDelete = functions.firestore.document('Turma/{avaliacaoId}').onDelete(turmaFunction.TurmaOnDelete);
 
 // Avaliacao
 import * as avaliacaoFunction from './function/avaliacao_function';

@@ -8,7 +8,7 @@ export default class DatabaseReferences {
   public static db = databaseReferences;
 
   //referencias auxiliares
-  public static usuariosRef = databaseReferences.collection('Usuario');
+  public static UsuarioCol = databaseReferences.collection('Usuario');
   public static avaliacaoRef = databaseReferences.collection('Avaliacao');
   public static questaoRef = databaseReferences.collection('Questao');
   public static situacaoRef = databaseReferences.collection('Situacao');
@@ -37,19 +37,18 @@ export default class DatabaseReferences {
   // public static controleAcaoRef = databaseReferences.collection('ControleAcao');
 
 
-  public static updateQueryDocumentNoCampoXComValorX(collectionNome: any, whereRefId: any, novaRefId: any, updateJsonData: any) {
-    this.db.collection(collectionNome).where(whereRefId, '==', novaRefId).get().then(async (dadosFiltrado: any) => {
-      if (dadosFiltrado.docs.length > 0) {
-        dadosFiltrado.docs.forEach(async (dadoFiltrado: any, index_filt: any, array_filt: any) => {
-          this.db.collection(collectionNome).doc(dadoFiltrado.id).update(updateJsonData).then(() => {
-            //console.log("ATUALIZAR NOME COLECTION " + collectionNome + " >> " + dadoFiltrado.id);
+  public static updateDocumentNoCampoXComValorX(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
+    this.db.collection(collectionName).where(fieldName, '==', value).get().then( (querySnapShot: any) => {
+      if (querySnapShot.docs.length > 0) {
+        querySnapShot.docs.forEach( (docRef: any) => {
+          this.db.collection(collectionName).doc(docRef.id).update(updateJsonData).then(() => {
+            console.log("updateDocumentNoCampoXComValorX ::  Col.: " + collectionName + " id: " + docRef.id);
           })
         })
       }
     }).catch((err: any) => {
-      console.log('Error getting documents : updateUsuarioCampoXEmOutrasCollections ', err)
+      console.log('Error getting documents em updateDocumentNoCampoXComValorX  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + fieldName, err)
     })
-
   }
 
   // public static atualizarDadosDeCollectionEmOutrasCollectionsMerge(collectionNome: any, whereRefId: any, novaRefId: any, updateJsonData: any) {
@@ -86,38 +85,37 @@ export default class DatabaseReferences {
 
   // }
 
-  public static onDeleteQueryDocument(collectionNome: any, whereRefId: any, novaRefId: any) {
-      this.db.collection(collectionNome).where(whereRefId, '==', novaRefId).get().then(async (dadosFiltrado: any) => {
-          if (dadosFiltrado.docs.length > 0) {
-              dadosFiltrado.docs.forEach(async (dadoFiltrado: any, index_filt: any, array_filt: any) => {
-                  this.db.collection(collectionNome).doc(dadoFiltrado.id).delete().then(() => {
-                      console.log("DELETAR DOC NA COLECTION " + collectionNome + " >> " + dadoFiltrado.id);
-                  })
-              })
-          }
-      }).catch((err: any) => {
-          console.log('Error getting documents : apagarDocDeCollectionEmOutrasCollections ', err)
-      })
+  public static onDeleteDocument(collectionName: any, fieldName: any, value: any) {
+    this.db.collection(collectionName).where(fieldName, '==', value).get().then((querySnapShot: any) => {
+      if (querySnapShot.docs.length > 0) {
+        querySnapShot.docs.forEach((docRef: any) => {
+          this.db.collection(collectionName).doc(docRef.id).delete().then(() => {
+            console.log("onDeleteDocument ::  Col.: " + collectionName + " id: " + docRef.id);
+          })
+        })
+      }
+    }).catch((err: any) => {
+      console.log('Error getting documents em  onDeleteDocument  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + fieldName, err)
+    })
 
   }
 
-  public static criarUsuario(data: any) {
+  public static criarUsuario(usuarioNovo: any) {
     admin.auth().createUser({
-      email: data.email,
+      email: usuarioNovo.email,
       emailVerified: false,
       password: "piprofbrintec",
-      //displayName: data.nome,
-    }).then(function (userRecord) {
+    }).then(function (newUser) {
 
-      console.log("Successfully created new user:", userRecord.uid);
+      console.log("Successfully created new user:", newUser.uid);
 
-      DatabaseReferences.usuariosRef.doc().set({
-        ativo: data.ativo,
-        email: data.email,
-        matricula: data.matricula,
-        nome: data.nome,
-        rota: data.rota,
-        turma: [data.turma],
+      DatabaseReferences.UsuarioCol.doc().set({
+        ativo: usuarioNovo.ativo,
+        email: usuarioNovo.email,
+        matricula: usuarioNovo.matricula,
+        nome: usuarioNovo.nome,
+        rota: usuarioNovo.rota,
+        turma: [usuarioNovo.turma],
         professor: false,
       })
 

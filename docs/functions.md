@@ -29,7 +29,12 @@
   - Tarefa
   - Encontro
 
+## TurmaOnDelete
 
+- Avaliacao
+- Questao
+- Tarefa
+- Encontro
 
 # Avaliacao
 

@@ -14,9 +14,9 @@ export function AvaliacaoOnUpdate(docSnapShot: any) {
   if (docSnapShotBeforeData.nome != docSnapShotAfterData.nome) {
     console.log("Avaliacao.Nome alterado. Atualizado nas demais collections")
     //Questao
-    DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Questao', 'avaliacao.id', docSnapShotId, { 'avaliacao.nome': docSnapShotAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Questao', 'avaliacao.id', docSnapShotId, { 'avaliacao.nome': docSnapShotAfterData.nome })
     //Tarefa
-    DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'avaliacao.nome': docSnapShotAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'avaliacao.nome': docSnapShotAfterData.nome })
   } else {
     console.log("Avaliacao.Nome NAO alterado.")
   }
@@ -26,9 +26,9 @@ export function AvaliacaoOnUpdate(docSnapShot: any) {
     if (docSnapShotBeforeData.inicio != docSnapShotAfterData.inicio) {
       console.log("Avaliacao.Inicio alterado. Atualizado nas demais collections")
       //Questao
-      DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Questao', 'avaliacao.id', docSnapShotId, { 'inicio': docSnapShotAfterData.inicio })
+      DatabaseReferences.updateDocumentNoCampoXComValorX('Questao', 'avaliacao.id', docSnapShotId, { 'inicio': docSnapShotAfterData.inicio })
       //Tarefa
-      DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'inicio': docSnapShotAfterData.inicio })
+      DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'inicio': docSnapShotAfterData.inicio })
     } else {
       console.log("Avaliacao.Inicio NAO alterado.")
     }
@@ -37,9 +37,9 @@ export function AvaliacaoOnUpdate(docSnapShot: any) {
     if (docSnapShotBeforeData.fim != docSnapShotAfterData.fim) {
       console.log("Avaliacao.fim alterado. Atualizado nas demais collections")
       //Questao
-      DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Questao', 'avaliacao.id', docSnapShotId, { 'fim': docSnapShotAfterData.fim })
+      DatabaseReferences.updateDocumentNoCampoXComValorX('Questao', 'avaliacao.id', docSnapShotId, { 'fim': docSnapShotAfterData.fim })
       //Tarefa
-      DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'fim': docSnapShotAfterData.fim })
+      DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'fim': docSnapShotAfterData.fim })
     } else {
       console.log("Avaliacao.fim NAO alterado.")
     }
@@ -49,7 +49,7 @@ export function AvaliacaoOnUpdate(docSnapShot: any) {
     if (docSnapShotBeforeData.nota != docSnapShotAfterData.nota) {
       console.log("Avaliacao.nota alterado. Atualizado nas demais collections")
       //Tarefa
-      DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'avaliacaoNota': docSnapShotAfterData.nota })
+      DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'avaliacaoNota': docSnapShotAfterData.nota })
     } else {
       console.log("Avaliacao.nota NAO alterado.")
     }
@@ -61,9 +61,9 @@ export function AvaliacaoOnUpdate(docSnapShot: any) {
 export function AvaliacaoOnDelete(docSnapShot: any) {
   const docSnapShotId = docSnapShot.id;
   // Questao
-  DatabaseReferences.onDeleteQueryDocument('Questao', 'avaliacao.id', docSnapShotId)
+  DatabaseReferences.onDeleteDocument('Questao', 'avaliacao.id', docSnapShotId)
   // Tarefa
-  DatabaseReferences.onDeleteQueryDocument('Tarefa', 'avaliacao.id', docSnapShotId)
+  DatabaseReferences.onDeleteDocument('Tarefa', 'avaliacao.id', docSnapShotId)
   return 0;
 }
 

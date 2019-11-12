@@ -14,7 +14,7 @@ export function SituacaoOnUpdate(docSnapShot: any) {
   if (docSnapShotBeforeData.nome != docSnapShotAfterData.nome) {
     console.log("Situacao.Nome alterado. Atualizado nas demais collections")
     //Simulacao
-    DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Simulacao', 'situacao.id', docSnapShotId, { 'situacao.nome': docSnapShotAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Simulacao', 'situacao.id', docSnapShotId, { 'situacao.nome': docSnapShotAfterData.nome })
   } else {
     console.log("Situacao.Nome NAO alterado.")
   }
@@ -27,7 +27,7 @@ export function SituacaoOnUpdate(docSnapShot: any) {
 export function SituacaoOnDelete(docSnapShot: any) {
   const docSnapShotId = docSnapShot.id;
   // Tarefa
-  DatabaseReferences.onDeleteQueryDocument('Simulacao', 'situacao.id', docSnapShotId)
+  DatabaseReferences.onDeleteDocument('Simulacao', 'situacao.id', docSnapShotId)
   return 0;
 }
 

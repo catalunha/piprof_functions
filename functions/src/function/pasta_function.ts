@@ -14,7 +14,7 @@ export function PastaOnUpdate(docSnapShot: any) {
   if (docSnapShotBeforeData.nome != docSnapShotAfterData.nome) {
     console.log("Pasta.Nome alterado. Atualizado nas demais collections")
     //Situacao
-    DatabaseReferences.updateQueryDocumentNoCampoXComValorX('Situacao', 'pasta.id', docSnapShotId, { 'pasta.nome': docSnapShotAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Situacao', 'pasta.id', docSnapShotId, { 'pasta.nome': docSnapShotAfterData.nome })
   } else {
     console.log("Pasta.Nome NAO alterado.")
   }

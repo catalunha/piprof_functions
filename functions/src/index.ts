@@ -11,12 +11,10 @@ import * as functions from 'firebase-functions';
 // USUARIO
 import * as usuarioFunction from './function/usuario_function';
 exports.UsuarioOnUpdate = functions.firestore.document('Usuario/{usuarioId}').onUpdate(usuarioFunction.UsuarioOnUpdate);
-// nata exports.UsuarioOnUpdate = functions.firestore.document('Usuario/{usuarioId}').onUpdate(usuarioFunction.iniciarUpdateCollectionUsuario);
-// nata exports.usuarioOnCreateFunction = functions.firestore.document('Usuario/{uploadId}').onCreate(usuarioFunction.iniciarCreateCollectionUsuario);
 
 // UsuarioNovo
 // import * as usuarioNovoFunction from './funcoes/usuario_novo_function';
-// exports.UsuarioNovoOnCreate = functions.firestore.document('UsuarioNovo/{usuarioNovoId}').onCreate(usuarioNovoFunction.iniciaOnCreate);
+// exports.UsuarioNovoOnCreate = functions.firestore.document('UsuarioNovo/{usuarioNovoId}').onCreate(usuarioNovoFunction.UsuarioNovoOnCreate);
 
 // Turma
 import * as turmaFunction from './function/turma_function';
@@ -42,3 +40,8 @@ exports.PastaOnDelete = functions.firestore.document('Pasta/{pastaId}').onDelete
 import * as situacaoFunction from './function/situacao_function';
 exports.SituacaoOnUpdate = functions.firestore.document('Situacao/{situacaoId}').onUpdate(situacaoFunction.SituacaoOnUpdate);
 exports.SituacaoOnDelete = functions.firestore.document('Situacao/{situacaoId}').onDelete(situacaoFunction.SituacaoOnDelete);
+
+
+// codigos antigos
+// nata exports.UsuarioOnUpdate = functions.firestore.document('Usuario/{usuarioId}').onUpdate(usuarioFunction.iniciarUpdateCollectionUsuario);
+// nata exports.usuarioOnCreateFunction = functions.firestore.document('Usuario/{uploadId}').onCreate(usuarioFunction.iniciarCreateCollectionUsuario);

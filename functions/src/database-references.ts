@@ -8,14 +8,14 @@ export default class DatabaseReferences {
   public static db = databaseReferences;
 
   //referencias auxiliares
-  public static UsuarioCol = databaseReferences.collection('Usuario');
-  public static avaliacaoRef = databaseReferences.collection('Avaliacao');
-  public static questaoRef = databaseReferences.collection('Questao');
-  public static situacaoRef = databaseReferences.collection('Situacao');
-  public static simulacaoRef = databaseReferences.collection('Simulacao');
-  public static tarefaRef = databaseReferences.collection('Tarefa');
+  public static Usuario = databaseReferences.collection('Usuario');
+  public static Avaliacao = databaseReferences.collection('Avaliacao');
+  public static Questao = databaseReferences.collection('Questao');
+  public static Situacao = databaseReferences.collection('Situacao');
+  public static Simulacao = databaseReferences.collection('Simulacao');
+  public static Tarefa = databaseReferences.collection('Tarefa');
 
-  public static TurmaCollection = databaseReferences.collection('Turma');
+  public static Turma = databaseReferences.collection('Turma');
 
   // public static questionarioAplicadoRef = databaseReferences.collection('QuestionarioAplicado');
   // public static PerguntaAplicadaRef = databaseReferences.collection('PerguntaAplicada');
@@ -104,12 +104,12 @@ export default class DatabaseReferences {
     admin.auth().createUser({
       email: usuarioNovo.email,
       emailVerified: false,
-      password: "piprofbrintec",
+      password: "pialunobrintec",
     }).then(function (newUser) {
 
       console.log("Successfully created new user:", newUser.uid);
 
-      DatabaseReferences.UsuarioCol.doc().set({
+      DatabaseReferences.Usuario.doc(newUser.uid).set({
         ativo: usuarioNovo.ativo,
         email: usuarioNovo.email,
         matricula: usuarioNovo.matricula,

@@ -18,36 +18,36 @@ export default class DatabaseReferences {
   public static Turma = databaseReferences.collection('Turma');
 
 
-  public static updateDocumentGeneric(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
-    console.log("updateDocumentGeneric. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
+  public static updateDocumentWhereEquals(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
+    console.log("updateDocumentWhereEquals. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
 
     this.db.collection(collectionName).where(fieldName, '==', value).get().then( (querySnapShot: any) => {
       if (querySnapShot.docs.length > 0) {
         querySnapShot.docs.forEach( (docRef: any) => {
           this.db.collection(collectionName).doc(docRef.id).update(updateJsonData).then(() => {
-            console.log("updateDocumentGeneric. Atualizado  Col.: " + collectionName + " id: " + docRef.id);
+            console.log("updateDocumentWhereEquals. Atualizado  Col.: " + collectionName + " id: " + docRef.id);
           })
         })
       }
     }).catch((error: any) => {
-      console.log('updateDocumentGeneric. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error)
+      console.log('updateDocumentWhereEquals. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error)
     })
   }
 
 
   public static updateDocumentWhereArrayContains(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
-    console.log("updateDocumentGeneric. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
+    console.log("updateDocumentWhereArrayContains. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
 
     this.db.collection(collectionName).where(fieldName, 'array-contains', value).get().then( (querySnapShot: any) => {
       if (querySnapShot.docs.length > 0) {
         querySnapShot.docs.forEach( (docRef: any) => {
           this.db.collection(collectionName).doc(docRef.id).update(updateJsonData).then(() => {
-            console.log("updateDocumentGeneric. Atualizado  Col.: " + collectionName + " id: " + docRef.id);
+            console.log("updateDocumentWhereArrayContains. Atualizado  Col.: " + collectionName + " id: " + docRef.id);
           })
         })
       }
     }).catch((error: any) => {
-      console.log('updateDocumentGeneric. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error)
+      console.log('updateDocumentWhereArrayContains. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error)
     })
   }
 

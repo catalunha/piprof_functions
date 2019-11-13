@@ -28,9 +28,9 @@ exports.UsuarioOnDelete = functions.firestore.document('Usuario/{usuarioId}').on
 // exports.AvaliacaoOnDelete = functions.firestore.document('Avaliacao/{avaliacaoId}').onDelete(avaliacaoFunction.AvaliacaoOnDelete);
 
 // // Questao
-// import * as questaoFunction from './function/questao_function';
+import * as questaoFunction from './function/questao_function';
 // exports.QuestaoOnUpdate = functions.firestore.document('Questao/{questaoId}').onUpdate(questaoFunction.QuestaoOnUpdate);
-// exports.QuestaoOnDelete = functions.firestore.document('Questao/{questaoId}').onDelete(questaoFunction.QuestaoOnDelete);
+exports.QuestaoOnDelete = functions.firestore.document('Questao/{questaoId}').onDelete(questaoFunction.QuestaoOnDelete);
 
 // // Pasta
 // import * as pastaFunction from './function/pasta_function';

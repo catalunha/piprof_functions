@@ -12,7 +12,7 @@ export function SituacaoOnUpdate(docSnapShot: any) {
 
   if (docBeforeData.nome != docAfterData.nome) {
     console.log("Situacao.Nome alterado. Atualizando em: Simulacao.")
-    DatabaseReferences.updateDocumentGeneric('Simulacao', 'situacao.id', docId, { 'situacao.nome': docAfterData.nome })
+    DatabaseReferences.updateDocumentWhereEquals('Simulacao', 'situacao.id', docId, { 'situacao.nome': docAfterData.nome })
   } 
   return 0
 }

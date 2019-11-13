@@ -13,23 +13,23 @@ export function UsuarioOnUpdate(docSnapShot: any) {
 
   if (docBeforeData.professor == true && (docBeforeData.nome != docAfterData.nome)) {
     console.log("Professor Usuario.Nome alterado.  Atualizando em: Turma | Pasta | Situacao | Simulacao | Avaliacao | Questao | Tarefa | Encontro.");
-    DatabaseReferences.updateDocumentGeneric('Turma', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
-    DatabaseReferences.updateDocumentGeneric('Pasta', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
-    DatabaseReferences.updateDocumentGeneric('Situacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
-    DatabaseReferences.updateDocumentGeneric('Simulacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
-    DatabaseReferences.updateDocumentGeneric('Avaliacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
-    DatabaseReferences.updateDocumentGeneric('Questao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
-    DatabaseReferences.updateDocumentGeneric('Tarefa', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
-    DatabaseReferences.updateDocumentGeneric('Encontro', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Turma', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Pasta', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Situacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Simulacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Avaliacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Questao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Encontro', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
   }
   if (docBeforeData.professor == false) {
     if (docBeforeData.nome != docAfterData.nome) {
       console.log("Aluno Usuario.Nome alterado.  Atualizando em: Tarefa.");
-      DatabaseReferences.updateDocumentGeneric('Tarefa', 'aluno.id', docId, { 'aluno.nome': docAfterData.nome });
+      DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'aluno.id', docId, { 'aluno.nome': docAfterData.nome });
     }
     if (docBeforeData.foto.url != docAfterData.foto.url) {
       console.log("Aluno Usuario.foto.url alterado. Atualizando em: Tarefa");
-      DatabaseReferences.updateDocumentGeneric('Tarefa', 'aluno.id', docId, { 'aluno.foto': docAfterData.foto.url });
+      DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'aluno.id', docId, { 'aluno.foto': docAfterData.foto.url });
     }
   }
   return 0
@@ -45,7 +45,7 @@ export function UsuarioOnDelete(docSnapShot: any) {
     DatabaseReferences.deleteDocumentGeneric('Turma', 'professor.id', docId);
   }
   if (docData.professor == false) {
-    console.log("UsuarioOnDelete. Apagando Tarefa.");
+    console.log("UsuarioOnDelete. Apagando Tarefa. Atualizando Avaliacao | Encontro.");
     DatabaseReferences.deleteDocumentGeneric('Tarefa', 'aluno.id', docId);
     DatabaseReferences.updateDocumentWhereArrayContains('Encontro', 'aluno', docId, { 'aluno': admin.firestore.FieldValue.arrayRemove(docId)});
     DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'aplicadaPAluno', docId, { 'aplicadaPAluno': admin.firestore.FieldValue.arrayRemove(docId)});

@@ -28,6 +28,15 @@ diferença entre then((usuario: any) => {   e    then(function (newUser) {
 - Usuario.foto (professor=false)
   - Tarefa
 
+## UsuarioOnDelete
+Se professor
+- Turma
+
+Se aluno
+- Tarefa
+- Encontro
+- Avaliacao.aplicadaPAluno
+- Avaliacao.aplicadaPAlunoFunction
 
 # Turma
 
@@ -93,7 +102,8 @@ diferença entre then((usuario: any) => {   e    then(function (newUser) {
 ## QuestaoOnDelete
 
 - Tarefa
-
+- Avaliacao.questaoAplicada
+- Avaliacao.questaoAplicadaFunction
 
 # Pasta
 

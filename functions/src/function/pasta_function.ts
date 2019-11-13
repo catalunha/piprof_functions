@@ -9,7 +9,7 @@ export function PastaOnUpdate(docSnapShot: any) {
 
   if (docBeforeData.nome != docAfterData.nome) {
     console.log("Pasta.Nome alterado. Atualizando em: Situacao.")
-    DatabaseReferences.updateDocumentGeneric('Situacao', 'pasta.id', docId, { 'pasta.nome': docAfterData.nome })
+    DatabaseReferences.updateDocumentWhereEquals('Situacao', 'pasta.id', docId, { 'pasta.nome': docAfterData.nome })
   }
   return 0
 }

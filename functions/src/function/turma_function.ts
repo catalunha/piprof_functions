@@ -12,10 +12,10 @@ export function TurmaOnUpdate(docSnapShot: any) {
 
   if (docBeforeData.nome != docAfterData.nome) {
     console.log("Turma.Nome alterado. Atualizando em: Avaliacao | Questao | Tarefa | Encontro.")
-    DatabaseReferences.updateDocumentGeneric('Avaliacao', 'turma.id', docId, { 'turma.nome': docAfterData.nome })
-    DatabaseReferences.updateDocumentGeneric('Questao', 'turma.id', docId, { 'turma.nome': docAfterData.nome })
-    DatabaseReferences.updateDocumentGeneric('Tarefa', 'turma.id', docId, { 'turma.nome': docAfterData.nome })
-    DatabaseReferences.updateDocumentGeneric('Encontro', 'turma.id', docId, { 'turma.nome': docAfterData.nome })
+    DatabaseReferences.updateDocumentWhereEquals('Avaliacao', 'turma.id', docId, { 'turma.nome': docAfterData.nome })
+    DatabaseReferences.updateDocumentWhereEquals('Questao', 'turma.id', docId, { 'turma.nome': docAfterData.nome })
+    DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'turma.id', docId, { 'turma.nome': docAfterData.nome })
+    DatabaseReferences.updateDocumentWhereEquals('Encontro', 'turma.id', docId, { 'turma.nome': docAfterData.nome })
   } 
   return 0
 }

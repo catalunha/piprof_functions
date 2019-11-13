@@ -8,22 +8,22 @@ export function AvaliacaoOnUpdate(docSnapShot: any) {
   console.log("AvaliacaoOnUpdate. id: " + docId);
   if (docBeforeData.nome != docAfterData.nome) {
     console.log("Avaliacao.Nome alterado. Atualizando em: Questao | Tarefa.");
-    DatabaseReferences.updateDocumentGeneric('Questao', 'avaliacao.id', docId, { 'avaliacao.nome': docAfterData.nome });
-    DatabaseReferences.updateDocumentGeneric('Tarefa', 'avaliacao.id', docId, { 'avaliacao.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Questao', 'avaliacao.id', docId, { 'avaliacao.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'avaliacao.id', docId, { 'avaliacao.nome': docAfterData.nome });
   }
   if (docBeforeData.inicio != docAfterData.inicio) {
     console.log("Avaliacao.Inicio alterado. Atualizando em: Questao | Tarefa.")
-    DatabaseReferences.updateDocumentGeneric('Questao', 'avaliacao.id', docId, { 'inicio': docAfterData.inicio });
-    DatabaseReferences.updateDocumentGeneric('Tarefa', 'avaliacao.id', docId, { 'inicio': docAfterData.inicio });
+    DatabaseReferences.updateDocumentWhereEquals('Questao', 'avaliacao.id', docId, { 'inicio': docAfterData.inicio });
+    DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'avaliacao.id', docId, { 'inicio': docAfterData.inicio });
   }
   if (docBeforeData.fim != docAfterData.fim) {
     console.log("Avaliacao.fim alterado. Atualizando em: Questao | Tarefa.");
-    DatabaseReferences.updateDocumentGeneric('Questao', 'avaliacao.id', docId, { 'fim': docAfterData.fim });
-    DatabaseReferences.updateDocumentGeneric('Tarefa', 'avaliacao.id', docId, { 'fim': docAfterData.fim });
+    DatabaseReferences.updateDocumentWhereEquals('Questao', 'avaliacao.id', docId, { 'fim': docAfterData.fim });
+    DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'avaliacao.id', docId, { 'fim': docAfterData.fim });
   }
   if (docBeforeData.nota != docAfterData.nota) {
     console.log("Avaliacao.nota alterado. Atualizando em: Questao | Tarefa.");
-    DatabaseReferences.updateDocumentGeneric('Tarefa', 'avaliacao.id', docId, { 'avaliacaoNota': docAfterData.nota });
+    DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'avaliacao.id', docId, { 'avaliacaoNota': docAfterData.nota });
   }
   return 0
 }

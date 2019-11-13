@@ -3,50 +3,50 @@ import DatabaseReferences from "../database-references";
 
 // ON UPDATE
 
-export function UsuarioOnUpdate(usuarioDocSnapShot: any) {
-  const usuarioBeforeData = usuarioDocSnapShot.before.data();
-  const usuarioAfterData = usuarioDocSnapShot.after.data();
-  const usuarioId = usuarioDocSnapShot.after.id;
+export function UsuarioOnUpdate(docSnapShot: any) {
+  const docBeforeData = docSnapShot.before.data();
+  const docAfterData = docSnapShot.after.data();
+  const docId = docSnapShot.after.id;
 
-  console.log("usuarioBeforeData.nome >> " + usuarioBeforeData.nome);
-  console.log("usuarioAfterData.nome >> " + usuarioAfterData.nome);
+  console.log("docBeforeData.nome >> " + docBeforeData.nome);
+  console.log("docAfterData.nome >> " + docAfterData.nome);
   //Update Nome de professor noutras coll
-  if (usuarioBeforeData.professor == true && (usuarioBeforeData.nome != usuarioAfterData.nome)) {
+  if (docBeforeData.professor == true && (docBeforeData.nome != docAfterData.nome)) {
     console.log("Professor Usuario.Nome alterado. Atualizado nas demais collections")
     //Turma
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Turma', 'professor.id', usuarioId, { 'professor.nome': usuarioAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Turma', 'professor.id', docId, { 'professor.nome': docAfterData.nome })
     //Pasta
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Pasta', 'professor.id', usuarioId, { 'professor.nome': usuarioAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Pasta', 'professor.id', docId, { 'professor.nome': docAfterData.nome })
     //Situacao
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Situacao', 'professor.id', usuarioId, { 'professor.nome': usuarioAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Situacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome })
     //Simulacao
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Simulacao', 'professor.id', usuarioId, { 'professor.nome': usuarioAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Simulacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome })
     //Avaliacao
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Avaliacao', 'professor.id', usuarioId, { 'professor.nome': usuarioAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Avaliacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome })
     //Questao
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Questao', 'professor.id', usuarioId, { 'professor.nome': usuarioAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Questao', 'professor.id', docId, { 'professor.nome': docAfterData.nome })
     //Tarefa
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'professor.id', usuarioId, { 'professor.nome': usuarioAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'professor.id', docId, { 'professor.nome': docAfterData.nome })
     //Encontro
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Encontro', 'professor.id', usuarioId, { 'professor.nome': usuarioAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Encontro', 'professor.id', docId, { 'professor.nome': docAfterData.nome })
   } else {
     console.log("Usuario.Nome NAO alterado.")
   }
 
   //Update Nome de aluno noutras coll
-  if (usuarioBeforeData.professor == false && (usuarioBeforeData.nome != usuarioAfterData.nome)) {
+  if (docBeforeData.professor == false && (docBeforeData.nome != docAfterData.nome)) {
     console.log("Aluno Usuario.Nome alterado. Atualizado nas demais collections")
     //Tarefa
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'aluno.id', usuarioId, { 'aluno.nome': usuarioAfterData.nome })
+    DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'aluno.id', docId, { 'aluno.nome': docAfterData.nome })
   } else {
     console.log("Usuario.Nome NAO alterado.")
   }
 
 //Update Foto de aluno noutras coll
-if (usuarioBeforeData.professor == false && (usuarioBeforeData.foto.url != usuarioAfterData.foto.url)) {
+if (docBeforeData.professor == false && (docBeforeData.foto.url != docAfterData.foto.url)) {
   console.log("Aluno Usuario.foto.url alterado. Atualizado nas demais collections")
   //Tarefa
-  DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'aluno.id', usuarioId, { 'aluno.foto': usuarioAfterData.foto.url })
+  DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'aluno.id', docId, { 'aluno.foto': docAfterData.foto.url })
 } else {
   console.log("Usuario.Nome NAO alterado.")
 }

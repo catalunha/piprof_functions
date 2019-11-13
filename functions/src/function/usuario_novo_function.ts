@@ -13,28 +13,16 @@ export function UsuarioNovoOnCreate(usuarioNovoSnapShot: any) {
         turma: usuarioFiltradoData.turma.concat([usuarioNovoData.turma]),
       }, { merge: true })
       //TODO: Precisa de promise. Pois ele pode apagar antes de incluir ?
-      DatabaseReferences.onDeleteDocument('UsuarioNovo', 'email', usuarioNovoData.email)
+      // DatabaseReferences.onDeleteDocument('UsuarioNovo', 'email', usuarioNovoData.email)
 
     } else {
       console.log("iniciaOnCreate >> Criar novo usuario")
       DatabaseReferences.criarUsuario(usuarioNovoData)
       //TODO: Precisa de promise. Pois ele pode apagar antes de incluir ?
-      DatabaseReferences.onDeleteDocument('UsuarioNovo', 'email', usuarioNovoData.email)
+      // DatabaseReferences.onDeleteDocument('UsuarioNovo', 'email', usuarioNovoData.email)
 
     }
   }).catch((error: any) => {
     console.log("Error: iniciaOnCreate >> " + error)
   })
 }
-
-
-// import admin = require("firebase-admin");
-
-      // let listaTurmas = new Array(data.turma)
-
-      // usuarioFiltradoData.turma.push(data.turma)
-      // let listaTurma = usuarioFiltradoData.turma.push(data.turma)
-
-      // console.log("data.turma >> " + data.turma)
-      // console.log("listaTurma >> " + listaTurma)
-

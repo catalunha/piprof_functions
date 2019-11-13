@@ -1,8 +1,6 @@
 import DatabaseReferences from "../database-references";
 
-
 // ON UPDATE
-
 export function PastaOnUpdate(docSnapShot: any) {
   const docSnapShotBeforeData = docSnapShot.before.data();
   const docSnapShotAfterData = docSnapShot.after.data();
@@ -18,13 +16,8 @@ export function PastaOnUpdate(docSnapShot: any) {
   } else {
     console.log("Pasta.Nome NAO alterado.")
   }
-
   return 0
-
-
 }
-
-
 
 export function PastaOnDelete(docSnapShot: any) {
   const docSnapShotId = docSnapShot.id;

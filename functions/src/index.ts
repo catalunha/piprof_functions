@@ -40,8 +40,3 @@ exports.PastaOnDelete = functions.firestore.document('Pasta/{pastaId}').onDelete
 import * as situacaoFunction from './function/situacao_function';
 exports.SituacaoOnUpdate = functions.firestore.document('Situacao/{situacaoId}').onUpdate(situacaoFunction.SituacaoOnUpdate);
 exports.SituacaoOnDelete = functions.firestore.document('Situacao/{situacaoId}').onDelete(situacaoFunction.SituacaoOnDelete);
-
-
-// codigos antigos
-// nata exports.UsuarioOnUpdate = functions.firestore.document('Usuario/{usuarioId}').onUpdate(usuarioFunction.iniciarUpdateCollectionUsuario);
-// nata exports.usuarioOnCreateFunction = functions.firestore.document('Usuario/{uploadId}').onCreate(usuarioFunction.iniciarCreateCollectionUsuario);

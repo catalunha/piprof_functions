@@ -28,7 +28,7 @@ export default class DatabaseReferences {
         })
       }
     }).catch((err: any) => {
-      console.log('Error getting documents em updateDocumentNoCampoXComValorX  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + fieldName, err)
+      console.log('Error getting documents em updateDocumentNoCampoXComValorX  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, err)
     })
   }
 
@@ -43,7 +43,7 @@ export default class DatabaseReferences {
         })
       }
     }).catch((err: any) => {
-      console.log('Error getting documents em  onDeleteDocument  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + fieldName, err)
+      console.log('Error getting documents em  onDeleteDocument  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, err)
     })
 
   }

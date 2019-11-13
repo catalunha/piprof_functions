@@ -1,4 +1,5 @@
 import DatabaseReferences from "../database-references";
+let admin = require('firebase-admin');
 
 
 // ON UPDATE
@@ -46,6 +47,10 @@ export function UsuarioOnDelete(docSnapShot: any) {
   if (docData.professor == false) {
     console.log("UsuarioOnDelete. Apagando Tarefa.");
     DatabaseReferences.deleteDocumentGeneric('Tarefa', 'aluno.id', docId);
+    DatabaseReferences.updateDocumentWhereArrayContains('Encontro', 'aluno', docId, { 'aluno': admin.firestore.FieldValue.arrayRemove(docId)});
+    DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'aplicadaPAluno', docId, { 'aplicadaPAluno': admin.firestore.FieldValue.arrayRemove(docId)});
+    DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'aplicadaPAlunoFunction', docId, { 'aplicadaPAlunoFunction': admin.firestore.FieldValue.arrayRemove(docId)});
+
   }
   return 0;
 }

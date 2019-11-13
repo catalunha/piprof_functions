@@ -8,10 +8,10 @@ import * as functions from 'firebase-functions';
 // });
 
 
-// // USUARIO
-// import * as usuarioFunction from './function/usuario_function';
+// USUARIO
+import * as usuarioFunction from './function/usuario_function';
 // exports.UsuarioOnUpdate = functions.firestore.document('Usuario/{usuarioId}').onUpdate(usuarioFunction.UsuarioOnUpdate);
-// exports.UsuarioOnDelete = functions.firestore.document('Usuario/{usuarioId}').onDelete(usuarioFunction.UsuarioOnDelete);
+exports.UsuarioOnDelete = functions.firestore.document('Usuario/{usuarioId}').onDelete(usuarioFunction.UsuarioOnDelete);
 
 // // UsuarioNovo
 // import * as usuarioNovoFunction from './function/usuario_novo_function';

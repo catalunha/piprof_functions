@@ -35,6 +35,23 @@ export default class DatabaseReferences {
   }
 
 
+  public static updateDocumentWhereArrayContains(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
+    console.log("updateDocumentGeneric. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
+
+    this.db.collection(collectionName).where(fieldName, 'array-contains', value).get().then( (querySnapShot: any) => {
+      if (querySnapShot.docs.length > 0) {
+        querySnapShot.docs.forEach( (docRef: any) => {
+          this.db.collection(collectionName).doc(docRef.id).update(updateJsonData).then(() => {
+            console.log("updateDocumentGeneric. Atualizado  Col.: " + collectionName + " id: " + docRef.id);
+          })
+        })
+      }
+    }).catch((error: any) => {
+      console.log('updateDocumentGeneric. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error)
+    })
+  }
+
+
   public static deleteDocumentGeneric(collectionName: any, fieldName: any, value: any) {
     console.log("deleteDocumentGeneric. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value);
 

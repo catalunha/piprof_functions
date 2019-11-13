@@ -1,3 +1,13 @@
+# Duvidas
+Quando usar return ?
+Quando usar ;  ?
+O que vem quando vc chama onUpdate ?
+O que vem quando vc chama onDelete ?
+O que vem quando vc chama onCreate ?
+Diferença entre  console.log('',error) e   console.log(''+error)  ?
+Como usar for ?
+diferença entre then((usuario: any) => {   e    then(function (newUser) { 
+
 # Usuario
 
 ## UsuarioOnUpdate

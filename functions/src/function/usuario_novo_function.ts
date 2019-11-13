@@ -1,28 +1,30 @@
 import DatabaseReferences from "../database-references";
+let admin = require('firebase-admin');
 
-export function UsuarioNovoOnCreate(usuarioNovoSnapShot: any) {
-  let usuarioNovoData = usuarioNovoSnapShot.data();
+export function UsuarioNovoOnCreate(docSnapShot: any) {
+  const docData = docSnapShot.data();
+  const docId = docSnapShot.id;
 
-  return DatabaseReferences.Usuario.where("email", "==", usuarioNovoData.email).get().then((usuario: any) => {
+  console.log("UsuarioNovoOnCreate :: " + docId);
+
+  return DatabaseReferences.Usuario.where("email", "==", docData.email).get().then((usuario: any) => {
     if (usuario.docs.length > 0) {
 
-      console.log("iniciaOnCreate >> Atualizar turmaList")
-      let usuarioFiltradoData = usuario.docs[0].data()
-      console.log("usuarioFiltradoData.turma >> " + usuarioFiltradoData.turma)
+      console.log("UsuarioNovoOnCreate. Usuario ja existe. Atualizando Usuario.turma")
       DatabaseReferences.Usuario.doc(usuario.docs[0].id).set({
-        turma: usuarioFiltradoData.turma.concat([usuarioNovoData.turma]),
+        turma: admin.firestore.FieldValue.arrayUnion(docData.turma),
       }, { merge: true })
       //TODO: Precisa de promise. Pois ele pode apagar antes de incluir ?
-      // DatabaseReferences.onDeleteDocument('UsuarioNovo', 'email', usuarioNovoData.email)
+      // DatabaseReferences.onDeleteDocument('UsuarioNovo', 'email', docData.email)
 
     } else {
-      console.log("iniciaOnCreate >> Criar novo usuario")
-      DatabaseReferences.criarUsuario(usuarioNovoData)
+      console.log("UsuarioNovoOnCreate. Criando novo usuario");
+      DatabaseReferences.criarUsuario(docData);
       //TODO: Precisa de promise. Pois ele pode apagar antes de incluir ?
-      // DatabaseReferences.onDeleteDocument('UsuarioNovo', 'email', usuarioNovoData.email)
+      // DatabaseReferences.onDeleteDocument('UsuarioNovo', 'email', docData.email)
 
     }
   }).catch((error: any) => {
-    console.log("Error: iniciaOnCreate >> " + error)
+    console.log("UsuarioNovoOnCreate. Error. " + error);
   })
 }

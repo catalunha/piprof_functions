@@ -18,34 +18,37 @@ export default class DatabaseReferences {
   public static Turma = databaseReferences.collection('Turma');
 
 
-  public static updateDocumentNoCampoXComValorX(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
+  public static updateDocumentGeneric(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
+    console.log("updateDocumentGeneric. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
+
     this.db.collection(collectionName).where(fieldName, '==', value).get().then( (querySnapShot: any) => {
       if (querySnapShot.docs.length > 0) {
         querySnapShot.docs.forEach( (docRef: any) => {
           this.db.collection(collectionName).doc(docRef.id).update(updateJsonData).then(() => {
-            console.log("updateDocumentNoCampoXComValorX ::  Col.: " + collectionName + " id: " + docRef.id);
+            console.log("updateDocumentGeneric. Atualizado  Col.: " + collectionName + " id: " + docRef.id);
           })
         })
       }
-    }).catch((err: any) => {
-      console.log('Error getting documents em updateDocumentNoCampoXComValorX  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, err)
+    }).catch((error: any) => {
+      console.log('updateDocumentGeneric. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error)
     })
   }
 
 
-  public static onDeleteDocument(collectionName: any, fieldName: any, value: any) {
+  public static deleteDocumentGeneric(collectionName: any, fieldName: any, value: any) {
+    console.log("deleteDocumentGeneric. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value);
+
     this.db.collection(collectionName).where(fieldName, '==', value).get().then((querySnapShot: any) => {
       if (querySnapShot.docs.length > 0) {
         querySnapShot.docs.forEach((docRef: any) => {
           this.db.collection(collectionName).doc(docRef.id).delete().then(() => {
-            console.log("onDeleteDocument ::  Col.: " + collectionName + " id: " + docRef.id);
+            console.log("deleteDocumentGeneric. Deletado  Col.: " + collectionName + " id: " + docRef.id);
           })
         })
       }
-    }).catch((err: any) => {
-      console.log('Error getting documents em  onDeleteDocument  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, err)
+    }).catch((error: any) => {
+      console.log('deleteDocumentGeneric. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error);
     })
-
   }
 
   public static criarUsuario(usuarioNovo: any) {
@@ -55,7 +58,7 @@ export default class DatabaseReferences {
       password: "pialunobrintec",
     }).then(function (newUser) {
 
-      console.log("Successfully created new user:", newUser.uid);
+      console.log("criarUsuario. Usuario criado com sucesso. id: ", newUser.uid);
 
       DatabaseReferences.Usuario.doc(newUser.uid).set({
         ativo: usuarioNovo.ativo,
@@ -68,7 +71,7 @@ export default class DatabaseReferences {
       })
 
     }).catch(function (error) {
-      console.log("Error creating new user:", error);
+      console.log("criarUsuario. Error creating new user:", error);
     });
   }
 

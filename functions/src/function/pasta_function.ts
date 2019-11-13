@@ -1,28 +1,25 @@
 import DatabaseReferences from "../database-references";
 
-// ON UPDATE
 export function PastaOnUpdate(docSnapShot: any) {
-  const docSnapShotBeforeData = docSnapShot.before.data();
-  const docSnapShotAfterData = docSnapShot.after.data();
-  const docSnapShotId = docSnapShot.after.id;
+  const docBeforeData = docSnapShot.before.data();
+  const docAfterData = docSnapShot.after.data();
+  const docId = docSnapShot.after.id;
 
-  console.log("docSnapShotBeforeData.nome >> " + docSnapShotBeforeData.nome);
-  console.log("docSnapShotAfterData.nome >> " + docSnapShotAfterData.nome);
-  //Update Nome noutras coll
-  if (docSnapShotBeforeData.nome != docSnapShotAfterData.nome) {
-    console.log("Pasta.Nome alterado. Atualizado nas demais collections")
-    //Situacao
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Situacao', 'pasta.id', docSnapShotId, { 'pasta.nome': docSnapShotAfterData.nome })
-  } else {
-    console.log("Pasta.Nome NAO alterado.")
+  console.log("PastaOnUpdate :: " + docId);
+
+  if (docBeforeData.nome != docAfterData.nome) {
+    console.log("Pasta.Nome alterado. Atualizando em: Situacao.")
+    DatabaseReferences.updateDocumentGeneric('Situacao', 'pasta.id', docId, { 'pasta.nome': docAfterData.nome })
   }
   return 0
 }
 
 export function PastaOnDelete(docSnapShot: any) {
-  const docSnapShotId = docSnapShot.id;
-  // Tarefa
-  DatabaseReferences.onDeleteDocument('Situacao', 'pasta.id', docSnapShotId)
+  const docId = docSnapShot.id;
+  console.log("PastaOnDelete :: " + docId);
+  console.log("UsuarioOnDelete. Apagando Situacao.");
+  DatabaseReferences.deleteDocumentGeneric('Situacao', 'pasta.id', docId);
+
   return 0;
 }
 

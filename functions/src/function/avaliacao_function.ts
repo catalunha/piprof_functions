@@ -2,60 +2,37 @@ import DatabaseReferences from "../database-references";
 
 // ON UPDATE
 export function AvaliacaoOnUpdate(docSnapShot: any) {
-  const docSnapShotBeforeData = docSnapShot.before.data();
-  const docSnapShotAfterData = docSnapShot.after.data();
-  const docSnapShotId = docSnapShot.after.id;
-  console.log("docSnapShotBeforeData.nome >> " + docSnapShotBeforeData.nome);
-  console.log("docSnapShotAfterData.nome >> " + docSnapShotAfterData.nome);
-  //Update Nome noutras coll
-  if (docSnapShotBeforeData.nome != docSnapShotAfterData.nome) {
-    console.log("Avaliacao.Nome alterado. Atualizado nas demais collections")
-    //Questao
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Questao', 'avaliacao.id', docSnapShotId, { 'avaliacao.nome': docSnapShotAfterData.nome })
-    //Tarefa
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'avaliacao.nome': docSnapShotAfterData.nome })
-  } else {
-    console.log("Avaliacao.Nome NAO alterado.")
+  const docBeforeData = docSnapShot.before.data();
+  const docAfterData = docSnapShot.after.data();
+  const docId = docSnapShot.after.id;
+  console.log("AvaliacaoOnUpdate. id: " + docId);
+  if (docBeforeData.nome != docAfterData.nome) {
+    console.log("Avaliacao.Nome alterado. Atualizando em: Questao | Tarefa.");
+    DatabaseReferences.updateDocumentGeneric('Questao', 'avaliacao.id', docId, { 'avaliacao.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentGeneric('Tarefa', 'avaliacao.id', docId, { 'avaliacao.nome': docAfterData.nome });
   }
-  //Update Inicio noutras coll
-  if (docSnapShotBeforeData.inicio != docSnapShotAfterData.inicio) {
-    console.log("Avaliacao.Inicio alterado. Atualizado nas demais collections")
-    //Questao
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Questao', 'avaliacao.id', docSnapShotId, { 'inicio': docSnapShotAfterData.inicio })
-    //Tarefa
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'inicio': docSnapShotAfterData.inicio })
-  } else {
-    console.log("Avaliacao.Inicio NAO alterado.")
+  if (docBeforeData.inicio != docAfterData.inicio) {
+    console.log("Avaliacao.Inicio alterado. Atualizando em: Questao | Tarefa.")
+    DatabaseReferences.updateDocumentGeneric('Questao', 'avaliacao.id', docId, { 'inicio': docAfterData.inicio });
+    DatabaseReferences.updateDocumentGeneric('Tarefa', 'avaliacao.id', docId, { 'inicio': docAfterData.inicio });
   }
-
-  //Update fim noutras coll
-  if (docSnapShotBeforeData.fim != docSnapShotAfterData.fim) {
-    console.log("Avaliacao.fim alterado. Atualizado nas demais collections")
-    //Questao
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Questao', 'avaliacao.id', docSnapShotId, { 'fim': docSnapShotAfterData.fim })
-    //Tarefa
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'fim': docSnapShotAfterData.fim })
-  } else {
-    console.log("Avaliacao.fim NAO alterado.")
+  if (docBeforeData.fim != docAfterData.fim) {
+    console.log("Avaliacao.fim alterado. Atualizando em: Questao | Tarefa.");
+    DatabaseReferences.updateDocumentGeneric('Questao', 'avaliacao.id', docId, { 'fim': docAfterData.fim });
+    DatabaseReferences.updateDocumentGeneric('Tarefa', 'avaliacao.id', docId, { 'fim': docAfterData.fim });
   }
-
-  //Update nota noutras coll
-  if (docSnapShotBeforeData.nota != docSnapShotAfterData.nota) {
-    console.log("Avaliacao.nota alterado. Atualizado nas demais collections")
-    //Tarefa
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Tarefa', 'avaliacao.id', docSnapShotId, { 'avaliacaoNota': docSnapShotAfterData.nota })
-  } else {
-    console.log("Avaliacao.nota NAO alterado.")
+  if (docBeforeData.nota != docAfterData.nota) {
+    console.log("Avaliacao.nota alterado. Atualizando em: Questao | Tarefa.");
+    DatabaseReferences.updateDocumentGeneric('Tarefa', 'avaliacao.id', docId, { 'avaliacaoNota': docAfterData.nota });
   }
   return 0
 }
 
 export function AvaliacaoOnDelete(docSnapShot: any) {
-  const docSnapShotId = docSnapShot.id;
-  // Questao
-  DatabaseReferences.onDeleteDocument('Questao', 'avaliacao.id', docSnapShotId)
-  // Tarefa
-  // DatabaseReferences.onDeleteDocument('Tarefa', 'avaliacao.id', docSnapShotId)
+  const docId = docSnapShot.id;
+  console.log("AvaliacaoOnDelete. id: " + docId);
+  console.log("AvaliacaoOnDelete. Apagando Questao.");
+  DatabaseReferences.deleteDocumentGeneric('Questao', 'avaliacao.id', docId);
   return 0;
 }
 

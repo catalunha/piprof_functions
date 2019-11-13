@@ -8,35 +8,36 @@ import * as functions from 'firebase-functions';
 // });
 
 
-// USUARIO
-import * as usuarioFunction from './function/usuario_function';
-exports.UsuarioOnUpdate = functions.firestore.document('Usuario/{usuarioId}').onUpdate(usuarioFunction.UsuarioOnUpdate);
+// // USUARIO
+// import * as usuarioFunction from './function/usuario_function';
+// exports.UsuarioOnUpdate = functions.firestore.document('Usuario/{usuarioId}').onUpdate(usuarioFunction.UsuarioOnUpdate);
+// exports.UsuarioOnDelete = functions.firestore.document('Usuario/{usuarioId}').onDelete(usuarioFunction.UsuarioOnDelete);
 
-// UsuarioNovo
-// import * as usuarioNovoFunction from './funcoes/usuario_novo_function';
+// // UsuarioNovo
+// import * as usuarioNovoFunction from './function/usuario_novo_function';
 // exports.UsuarioNovoOnCreate = functions.firestore.document('UsuarioNovo/{usuarioNovoId}').onCreate(usuarioNovoFunction.UsuarioNovoOnCreate);
 
-// Turma
-import * as turmaFunction from './function/turma_function';
-exports.TurmaOnUpdate = functions.firestore.document('Turma/{turmaId}').onUpdate(turmaFunction.TurmaOnUpdate);
-exports.TurmaOnDelete = functions.firestore.document('Turma/{avaliacaoId}').onDelete(turmaFunction.TurmaOnDelete);
+// // Turma
+// import * as turmaFunction from './function/turma_function';
+// exports.TurmaOnUpdate = functions.firestore.document('Turma/{turmaId}').onUpdate(turmaFunction.TurmaOnUpdate);
+// exports.TurmaOnDelete = functions.firestore.document('Turma/{avaliacaoId}').onDelete(turmaFunction.TurmaOnDelete);
 
-// Avaliacao
-import * as avaliacaoFunction from './function/avaliacao_function';
-exports.AvaliacaoOnUpdate = functions.firestore.document('Avaliacao/{avaliacaoId}').onUpdate(avaliacaoFunction.AvaliacaoOnUpdate);
-exports.AvaliacaoOnDelete = functions.firestore.document('Avaliacao/{avaliacaoId}').onDelete(avaliacaoFunction.AvaliacaoOnDelete);
+// // Avaliacao
+// import * as avaliacaoFunction from './function/avaliacao_function';
+// exports.AvaliacaoOnUpdate = functions.firestore.document('Avaliacao/{avaliacaoId}').onUpdate(avaliacaoFunction.AvaliacaoOnUpdate);
+// exports.AvaliacaoOnDelete = functions.firestore.document('Avaliacao/{avaliacaoId}').onDelete(avaliacaoFunction.AvaliacaoOnDelete);
 
-// Questao
-import * as questaoFunction from './function/questao_function';
-exports.QuestaoOnUpdate = functions.firestore.document('Questao/{questaoId}').onUpdate(questaoFunction.QuestaoOnUpdate);
-exports.QuestaoOnDelete = functions.firestore.document('Questao/{questaoId}').onDelete(questaoFunction.QuestaoOnDelete);
+// // Questao
+// import * as questaoFunction from './function/questao_function';
+// exports.QuestaoOnUpdate = functions.firestore.document('Questao/{questaoId}').onUpdate(questaoFunction.QuestaoOnUpdate);
+// exports.QuestaoOnDelete = functions.firestore.document('Questao/{questaoId}').onDelete(questaoFunction.QuestaoOnDelete);
 
-// Pasta
-import * as pastaFunction from './function/pasta_function';
-exports.PastaOnUpdate = functions.firestore.document('Pasta/{pastaId}').onUpdate(pastaFunction.PastaOnUpdate);
-exports.PastaOnDelete = functions.firestore.document('Pasta/{pastaId}').onDelete(pastaFunction.PastaOnDelete);
+// // Pasta
+// import * as pastaFunction from './function/pasta_function';
+// exports.PastaOnUpdate = functions.firestore.document('Pasta/{pastaId}').onUpdate(pastaFunction.PastaOnUpdate);
+// exports.PastaOnDelete = functions.firestore.document('Pasta/{pastaId}').onDelete(pastaFunction.PastaOnDelete);
 
-// Situacao
-import * as situacaoFunction from './function/situacao_function';
-exports.SituacaoOnUpdate = functions.firestore.document('Situacao/{situacaoId}').onUpdate(situacaoFunction.SituacaoOnUpdate);
-exports.SituacaoOnDelete = functions.firestore.document('Situacao/{situacaoId}').onDelete(situacaoFunction.SituacaoOnDelete);
+// // Situacao
+// import * as situacaoFunction from './function/situacao_function';
+// exports.SituacaoOnUpdate = functions.firestore.document('Situacao/{situacaoId}').onUpdate(situacaoFunction.SituacaoOnUpdate);
+// exports.SituacaoOnDelete = functions.firestore.document('Situacao/{situacaoId}').onDelete(situacaoFunction.SituacaoOnDelete);

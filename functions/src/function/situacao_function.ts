@@ -4,27 +4,24 @@ import DatabaseReferences from "../database-references";
 // ON UPDATE
 
 export function SituacaoOnUpdate(docSnapShot: any) {
-  const docSnapShotBeforeData = docSnapShot.before.data();
-  const docSnapShotAfterData = docSnapShot.after.data();
-  const docSnapShotId = docSnapShot.after.id;
+  const docBeforeData = docSnapShot.before.data();
+  const docAfterData = docSnapShot.after.data();
+  const docId = docSnapShot.after.id;
 
-  console.log("docSnapShotBeforeData.nome >> " + docSnapShotBeforeData.nome);
-  console.log("docSnapShotAfterData.nome >> " + docSnapShotAfterData.nome);
-  //Update Nome noutras coll
-  if (docSnapShotBeforeData.nome != docSnapShotAfterData.nome) {
-    console.log("Situacao.Nome alterado. Atualizado nas demais collections")
-    //Simulacao
-    DatabaseReferences.updateDocumentNoCampoXComValorX('Simulacao', 'situacao.id', docSnapShotId, { 'situacao.nome': docSnapShotAfterData.nome })
-  } else {
-    console.log("Situacao.Nome NAO alterado.")
-  }
+  console.log("SituacaoOnUpdate :: " + docId);
+
+  if (docBeforeData.nome != docAfterData.nome) {
+    console.log("Situacao.Nome alterado. Atualizando em: Simulacao.")
+    DatabaseReferences.updateDocumentGeneric('Simulacao', 'situacao.id', docId, { 'situacao.nome': docAfterData.nome })
+  } 
   return 0
 }
 
 export function SituacaoOnDelete(docSnapShot: any) {
-  const docSnapShotId = docSnapShot.id;
-  // Tarefa
-  DatabaseReferences.onDeleteDocument('Simulacao', 'situacao.id', docSnapShotId)
+  const docId = docSnapShot.id;
+  console.log("SituacaoOnDelete :: " + docId);
+  console.log("SituacaoOnDelete. Apagando Simulacao.");
+  DatabaseReferences.deleteDocumentGeneric('Simulacao', 'situacao.id', docId);
   return 0;
 }
 

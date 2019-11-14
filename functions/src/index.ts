@@ -9,9 +9,9 @@ import * as functions from 'firebase-functions';
 
 
 // USUARIO
-import * as usuarioFunction from './function/usuario_function';
+// import * as usuarioFunction from './function/usuario_function';
 // exports.UsuarioOnUpdate = functions.firestore.document('Usuario/{usuarioId}').onUpdate(usuarioFunction.UsuarioOnUpdate);
-exports.UsuarioOnDelete = functions.firestore.document('Usuario/{usuarioId}').onDelete(usuarioFunction.UsuarioOnDelete);
+// exports.UsuarioOnDelete = functions.firestore.document('Usuario/{usuarioId}').onDelete(usuarioFunction.UsuarioOnDelete);
 
 // // UsuarioNovo
 // import * as usuarioNovoFunction from './function/usuario_novo_function';
@@ -23,14 +23,14 @@ exports.UsuarioOnDelete = functions.firestore.document('Usuario/{usuarioId}').on
 // exports.TurmaOnDelete = functions.firestore.document('Turma/{avaliacaoId}').onDelete(turmaFunction.TurmaOnDelete);
 
 // // Avaliacao
-// import * as avaliacaoFunction from './function/avaliacao_function';
-// exports.AvaliacaoOnUpdate = functions.firestore.document('Avaliacao/{avaliacaoId}').onUpdate(avaliacaoFunction.AvaliacaoOnUpdate);
+import * as avaliacaoFunction from './function/avaliacao_function';
+exports.AvaliacaoOnUpdate = functions.firestore.document('Avaliacao/{avaliacaoId}').onUpdate(avaliacaoFunction.AvaliacaoOnUpdate);
 // exports.AvaliacaoOnDelete = functions.firestore.document('Avaliacao/{avaliacaoId}').onDelete(avaliacaoFunction.AvaliacaoOnDelete);
 
 // // Questao
-import * as questaoFunction from './function/questao_function';
+// import * as questaoFunction from './function/questao_function';
 // exports.QuestaoOnUpdate = functions.firestore.document('Questao/{questaoId}').onUpdate(questaoFunction.QuestaoOnUpdate);
-exports.QuestaoOnDelete = functions.firestore.document('Questao/{questaoId}').onDelete(questaoFunction.QuestaoOnDelete);
+// exports.QuestaoOnDelete = functions.firestore.document('Questao/{questaoId}').onDelete(questaoFunction.QuestaoOnDelete);
 
 // // Pasta
 // import * as pastaFunction from './function/pasta_function';

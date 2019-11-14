@@ -1,8 +1,7 @@
 import DatabaseReferences from "../database-references";
 let admin = require('firebase-admin');
+import { Timestamp } from "@google-cloud/firestore";
 
-
-// ON UPDATE
 
 export function QuestaoOnUpdate(docSnapShot: any) {
   const docBeforeData = docSnapShot.before.data();
@@ -11,11 +10,11 @@ export function QuestaoOnUpdate(docSnapShot: any) {
 
   console.log("QuestaoOnUpdate :: " + docId);
 
-  if (docBeforeData.inicio != docAfterData.inicio) {
+  if ((docBeforeData.inicio as Timestamp).toDate().toLocaleString() != (docAfterData.inicio as Timestamp).toDate().toLocaleString()) {
     console.log("Questao.Inicio alterado. Atualizando em: Tarefa.")
     DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'questao.id', docId, { 'inicio': docAfterData.inicio })
   }
-  if (docBeforeData.fim != docAfterData.fim) {
+  if ((docBeforeData.fim as Timestamp).toDate().toLocaleString() != (docAfterData.fim as Timestamp).toDate().toLocaleString()) {
     console.log("Questao.fim alterado. Atualizando em: Tarefa.")
     DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'questao.id', docId, { 'fim': docAfterData.fim })
   }
@@ -30,10 +29,10 @@ export function QuestaoOnUpdate(docSnapShot: any) {
 export function QuestaoOnDelete(docSnapShot: any) {
   const docId = docSnapShot.id;
   console.log("QuestaoOnDelete :: " + docId);
-  console.log("QuestaoOnDelete. Apagando Tarefa Atualizando Avaliacao.");
+  console.log("QuestaoOnDelete. Apagando Tarefa. Atualizando Avaliacao.");
   DatabaseReferences.deleteDocumentGeneric('Tarefa', 'questao.id', docId);
-  DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'questaoAplicada', docId, { 'questaoAplicada': admin.firestore.FieldValue.arrayRemove(docId)});
-  DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'questaoAplicadaFunction', docId, { 'questaoAplicadaFunction': admin.firestore.FieldValue.arrayRemove(docId)});
+  DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'questaoAplicada', docId, { 'questaoAplicada': admin.firestore.FieldValue.arrayRemove(docId) });
+  DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'questaoAplicadaFunction', docId, { 'questaoAplicadaFunction': admin.firestore.FieldValue.arrayRemove(docId) });
   return 0;
 }
 

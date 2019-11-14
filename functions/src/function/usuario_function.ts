@@ -50,7 +50,6 @@ export function UsuarioOnDelete(docSnapShot: any) {
     DatabaseReferences.updateDocumentWhereArrayContains('Encontro', 'aluno', docId, { 'aluno': admin.firestore.FieldValue.arrayRemove(docId)});
     DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'aplicadaPAluno', docId, { 'aplicadaPAluno': admin.firestore.FieldValue.arrayRemove(docId)});
     DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'aplicadaPAlunoFunction', docId, { 'aplicadaPAlunoFunction': admin.firestore.FieldValue.arrayRemove(docId)});
-
   }
   return 0;
 }

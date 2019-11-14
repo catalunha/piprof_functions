@@ -8,6 +8,39 @@ Diferença entre  console.log('',error) e   console.log(''+error)  ?
 Como usar for ?
 diferença entre then((usuario: any) => {   e    then(function (newUser) { 
 
+
+# Cabeçadas
+
+## Datas
+Na comparação de datas apenas a ultima alternativa funciona.
+~~~
+  // if (docBeforeData.inicio != docAfterData.inicio) { // nao funciona
+  // if (docBeforeData.inicio !== docAfterData.inicio) { // nao funciona
+  // if ((docBeforeData.inicio as admin.firestore.Timestamp) != (docAfterData.inicio as admin.firestore.Timestamp)) { // nao funciona
+  // if (docBeforeData.inicio.getTime() != docAfterData.inicio.getTime()) { // nao funciona
+
+  if ((docBeforeData.inicio as Timestamp).toDate().toLocaleString() != (docAfterData.inicio as Timestamp).toDate().toLocaleString()) {
+~~~
+
+
+# bib ts
+
+https://expertcodeblog.wordpress.com/2018/03/12/typescript-how-to-compare-two-dates/
+
+
+## Comparação comm ===
+
+
+# firebase
+~~~
+catalunha@nbuft:~/projetosfirebase/piprof_functions$ npm install -g firebase-tools
+~~~
+de va a pasta de functions e 
+~~~
+catalunha@nbuft:~/projetosfirebase/piprof_functions/functions$ npm install
+~~~
+Como está puxando o projeto do git tem que instalar as dependências
+
 # Usuario
 
 ## UsuarioOnUpdate

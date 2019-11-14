@@ -17,7 +17,7 @@ export function PastaOnUpdate(docSnapShot: any) {
 export function PastaOnDelete(docSnapShot: any) {
   const docId = docSnapShot.id;
   console.log("PastaOnDelete :: " + docId);
-  console.log("UsuarioOnDelete. Apagando Situacao.");
+  console.log("PastaOnDelete. Apagando Situacao.");
   DatabaseReferences.deleteDocumentGeneric('Situacao', 'pasta.id', docId);
 
   return 0;

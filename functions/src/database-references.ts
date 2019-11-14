@@ -73,7 +73,7 @@ export default class DatabaseReferences {
       email: usuarioNovo.email,
       emailVerified: false,
       password: "pialunobrintec",
-    }).then(function (newUser) {
+    }).then(function (newUser: any) {
 
       console.log("criarUsuario. Usuario criado com sucesso. id: ", newUser.uid);
 
@@ -87,7 +87,7 @@ export default class DatabaseReferences {
         professor: false,
       })
 
-    }).catch(function (error) {
+    }).catch(function (error: any) {
       console.log("criarUsuario. Error creating new user:", error);
     });
   }

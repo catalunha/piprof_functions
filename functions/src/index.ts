@@ -23,8 +23,8 @@ import * as functions from 'firebase-functions';
 // exports.TurmaOnDelete = functions.firestore.document('Turma/{avaliacaoId}').onDelete(turmaFunction.TurmaOnDelete);
 
 // // Avaliacao
-import * as avaliacaoFunction from './function/avaliacao_function';
-exports.AvaliacaoOnUpdate = functions.firestore.document('Avaliacao/{avaliacaoId}').onUpdate(avaliacaoFunction.AvaliacaoOnUpdate);
+// import * as avaliacaoFunction from './function/avaliacao_function';
+// exports.AvaliacaoOnUpdate = functions.firestore.document('Avaliacao/{avaliacaoId}').onUpdate(avaliacaoFunction.AvaliacaoOnUpdate);
 // exports.AvaliacaoOnDelete = functions.firestore.document('Avaliacao/{avaliacaoId}').onDelete(avaliacaoFunction.AvaliacaoOnDelete);
 
 // // Questao

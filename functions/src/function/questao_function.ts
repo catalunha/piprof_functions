@@ -3,12 +3,12 @@ let admin = require('firebase-admin');
 import { Timestamp } from "@google-cloud/firestore";
 
 
-export function QuestaoOnUpdate(docSnapShot: any) {
+export function questaoOnUpdate(docSnapShot: any) {
   const docBeforeData = docSnapShot.before.data();
   const docAfterData = docSnapShot.after.data();
   const docId = docSnapShot.after.id;
 
-  console.log("QuestaoOnUpdate :: " + docId);
+  console.log("questaoOnUpdate :: " + docId);
 
   if ((docBeforeData.inicio as Timestamp).toDate().toLocaleString() != (docAfterData.inicio as Timestamp).toDate().toLocaleString()) {
     console.log("Questao.Inicio alterado. Atualizando em: Tarefa.")
@@ -26,10 +26,10 @@ export function QuestaoOnUpdate(docSnapShot: any) {
   return 0
 }
 
-export function QuestaoOnDelete(docSnapShot: any) {
+export function questaoOnDelete(docSnapShot: any) {
   const docId = docSnapShot.id;
-  console.log("QuestaoOnDelete :: " + docId);
-  console.log("QuestaoOnDelete. Apagando Tarefa. Atualizando Avaliacao.");
+  console.log("questaoOnDelete :: " + docId);
+  console.log("questaoOnDelete. Apagando Tarefa. Atualizando Avaliacao.");
   DatabaseReferences.deleteDocumentGeneric('Tarefa', 'questao.id', docId);
   DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'questaoAplicada', docId, { 'questaoAplicada': admin.firestore.FieldValue.arrayRemove(docId) });
   DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'questaoAplicadaFunction', docId, { 'questaoAplicadaFunction': admin.firestore.FieldValue.arrayRemove(docId) });

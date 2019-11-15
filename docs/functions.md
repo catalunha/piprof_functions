@@ -43,12 +43,12 @@ Como está puxando o projeto do git tem que instalar as dependências
 
 # Usuario
 
-## UsuarioOnUpdate
+## usuarioOnUpdate
 
 - Usuario.nome (professor=true)
   - Turma
   - Pasta
-  - Situacao
+  - Problema
   - Simulacao
   - Avaliacao
   - Questao
@@ -61,7 +61,7 @@ Como está puxando o projeto do git tem que instalar as dependências
 - Usuario.foto (professor=false)
   - Tarefa
 
-## UsuarioOnDelete
+## usuarioOnDelete
 Se professor
 - Turma
 
@@ -73,7 +73,7 @@ Se aluno
 
 # Turma
 
-## TurmaOnUpdate
+## turmaOnUpdate
 
 - Turma.nome
   - Avaliacao
@@ -81,7 +81,7 @@ Se aluno
   - Tarefa
   - Encontro
 
-## TurmaOnDelete
+## turmaOnDelete
 
 - Avaliacao
 - Questao
@@ -90,7 +90,7 @@ Se aluno
 
 # Avaliacao
 
-## AvaliacaoOnUpdate
+## avaliacaoOnUpdate
 - Avaliacao.nome
   - Questao
   - Tarefa
@@ -106,14 +106,14 @@ Se aluno
 - Avaliacao.nota
   - Tarefa.avaliacaoNota
 
-## AvaliacaoOnDelete
+## avaliacaoOnDelete
 
 - Questao
 - Tarefa
 
 # Questao
 
-## QuestaoOnUpdate
+## questaoOnUpdate
 
 - Questao.inicio
   - Tarefa.inicio
@@ -132,7 +132,7 @@ Se aluno
 - Questao.nota
   - Tarefa.questaoNota
 
-## QuestaoOnDelete
+## questaoOnDelete
 
 - Tarefa
 - Avaliacao.questaoAplicada
@@ -140,23 +140,23 @@ Se aluno
 
 # Pasta
 
-## PastaOnUpdate
+## pastaOnUpdate
 
 - Pasta.nome
-  - Situacao
+  - Problema
 
-## PastaOnDelete
-- Situacao
+## pastaOnDelete
+- Problema
 - Simulacao
 
 
-# Situacao
+# Problema
 
-## SituacaoOnUpdate
+## problemaOnUpdate
 
-- Situacao.nome
+- Problema.nome
   - Simulacao
 
-## SituacaoOnDelete
+## problemaOnDelete
 
 - Simulacao

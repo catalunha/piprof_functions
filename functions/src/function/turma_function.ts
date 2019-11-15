@@ -3,12 +3,12 @@ import DatabaseReferences from "../database-references";
 
 // ON UPDATE
 
-export function TurmaOnUpdate(docSnapShot: any) {
+export function turmaOnUpdate(docSnapShot: any) {
   const docBeforeData = docSnapShot.before.data();
   const docAfterData = docSnapShot.after.data();
   const docId = docSnapShot.after.id;
 
-  console.log("TurmaOnUpdate :: " + docId);
+  console.log("turmaOnUpdate :: " + docId);
 
   if (docBeforeData.nome != docAfterData.nome) {
     console.log("Turma.Nome alterado. Atualizando em: Avaliacao | Questao | Tarefa | Encontro.")
@@ -20,10 +20,10 @@ export function TurmaOnUpdate(docSnapShot: any) {
   return 0
 }
 
-export function TurmaOnDelete(docSnapShot: any) {
+export function turmaOnDelete(docSnapShot: any) {
   const docId = docSnapShot.id;
-  console.log("TurmaOnDelete :: " + docId);
-  console.log("TurmaOnDelete. Apagando Avaliacao | Encontro.");
+  console.log("turmaOnDelete :: " + docId);
+  console.log("turmaOnDelete. Apagando Avaliacao | Encontro.");
   DatabaseReferences.deleteDocumentGeneric('Avaliacao', 'turma.id', docId);
   DatabaseReferences.deleteDocumentGeneric('Encontro', 'turma.id', docId);
   return 0;

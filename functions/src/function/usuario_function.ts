@@ -4,18 +4,18 @@ let admin = require('firebase-admin');
 
 // ON UPDATE
 
-export function UsuarioOnUpdate(docSnapShot: any) {
+export function usuarioOnUpdate(docSnapShot: any) {
   const docBeforeData = docSnapShot.before.data();
   const docAfterData = docSnapShot.after.data();
   const docId = docSnapShot.after.id;
 
-  console.log("UsuarioOnUpdate :: " + docId);
+  console.log("usuarioOnUpdate :: " + docId);
 
   if (docBeforeData.professor == true && (docBeforeData.nome != docAfterData.nome)) {
-    console.log("Professor Usuario.Nome alterado.  Atualizando em: Turma | Pasta | Situacao | Simulacao | Avaliacao | Questao | Tarefa | Encontro.");
+    console.log("Professor Usuario.Nome alterado.  Atualizando em: Turma | Pasta | Problema | Simulacao | Avaliacao | Questao | Tarefa | Encontro.");
     DatabaseReferences.updateDocumentWhereEquals('Turma', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
     DatabaseReferences.updateDocumentWhereEquals('Pasta', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
-    DatabaseReferences.updateDocumentWhereEquals('Situacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
+    DatabaseReferences.updateDocumentWhereEquals('Problema', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
     DatabaseReferences.updateDocumentWhereEquals('Simulacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
     DatabaseReferences.updateDocumentWhereEquals('Avaliacao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
     DatabaseReferences.updateDocumentWhereEquals('Questao', 'professor.id', docId, { 'professor.nome': docAfterData.nome });
@@ -36,16 +36,16 @@ export function UsuarioOnUpdate(docSnapShot: any) {
 }
 
 
-export function UsuarioOnDelete(docSnapShot: any) {
+export function usuarioOnDelete(docSnapShot: any) {
   const docData = docSnapShot.data();
   const docId = docSnapShot.id;
-  console.log("UsuarioOnDelete :: " + docId);
+  console.log("usuarioOnDelete :: " + docId);
   if (docData.professor == true) {
-    console.log("UsuarioOnDelete. Apagando Turma.");
+    console.log("usuarioOnDelete. Apagando Turma.");
     DatabaseReferences.deleteDocumentGeneric('Turma', 'professor.id', docId);
   }
   if (docData.professor == false) {
-    console.log("UsuarioOnDelete. Apagando Tarefa. Atualizando Avaliacao | Encontro.");
+    console.log("usuarioOnDelete. Apagando Tarefa. Atualizando Avaliacao | Encontro.");
     DatabaseReferences.deleteDocumentGeneric('Tarefa', 'aluno.id', docId);
     DatabaseReferences.updateDocumentWhereArrayContains('Encontro', 'aluno', docId, { 'aluno': admin.firestore.FieldValue.arrayRemove(docId)});
     DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'aplicadaPAluno', docId, { 'aplicadaPAluno': admin.firestore.FieldValue.arrayRemove(docId)});

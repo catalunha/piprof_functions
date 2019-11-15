@@ -11,11 +11,11 @@ export default class DatabaseReferences {
   public static Usuario = databaseReferences.collection('Usuario');
   public static Avaliacao = databaseReferences.collection('Avaliacao');
   public static Questao = databaseReferences.collection('Questao');
-  public static Situacao = databaseReferences.collection('Situacao');
+  public static Problema = databaseReferences.collection('Problema');
   public static Simulacao = databaseReferences.collection('Simulacao');
   public static Tarefa = databaseReferences.collection('Tarefa');
-
   public static Turma = databaseReferences.collection('Turma');
+  public static Upload = databaseReferences.collection('Upload');
 
 
   public static updateDocumentWhereEquals(collectionName: any, fieldName: any, value: any, updateJsonData: any) {

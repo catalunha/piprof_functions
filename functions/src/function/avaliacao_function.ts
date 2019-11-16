@@ -189,9 +189,14 @@ function aplicarTarefaParaCadaAluno(listaAluno: any, questaoData: any, avaliacao
 }
 
 function gerarSalvarNovoDocumentDeTarefa(aluno: any, questao: any, avaliacaoData: any, avaliacaoId: any, simulacao: any, marcadorAtualizacao: any) {
+  let foto = null;
+  if (aluno.data().foto !== null && aluno.data().foto.url !== null) {
+    foto = aluno.data().foto.url;
+  }
   let tarefa = {
     aluno: {
-      foto: aluno.data().foto.url || null,
+      // foto: aluno.data().foto.url || null,
+      foto: foto,
       id: aluno.id,
       nome: aluno.data().nome
     },

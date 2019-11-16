@@ -84,6 +84,7 @@ export default class DatabaseReferences {
         nome: usuarioNovo.nome,
         rota: usuarioNovo.rota,
         turma: [usuarioNovo.turma],
+        foto: usuarioNovo.foto,
         professor: false,
       })
 

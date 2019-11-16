@@ -25,6 +25,8 @@ Na comparação de datas apenas a ultima alternativa funciona.
 
 # bib ts
 
+https://medium.com/@oieduardorabelo/typescript-o-guia-definitivo-1a63b04259cc
+
 https://expertcodeblog.wordpress.com/2018/03/12/typescript-how-to-compare-two-dates/
 
 

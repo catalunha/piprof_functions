@@ -14,8 +14,8 @@ import * as functions from 'firebase-functions';
 // exports.usuarioOnDelete = functions.firestore.document('Usuario/{usuarioId}').onDelete(usuarioFunction.usuarioOnDelete);
 
 // UsuarioNovo
-import * as usuarioNovoFunction from './function/usuario_novo_function';
-exports.usuarioNovoOnCreate = functions.firestore.document('UsuarioNovo/{usuarioNovoId}').onCreate(usuarioNovoFunction.usuarioNovoOnCreate);
+// import * as usuarioNovoFunction from './function/usuario_novo_function';
+// exports.usuarioNovoOnCreate = functions.firestore.document('UsuarioNovo/{usuarioNovoId}').onCreate(usuarioNovoFunction.usuarioNovoOnCreate);
 
 // // Turma
 // import * as turmaFunction from './function/turma_function';

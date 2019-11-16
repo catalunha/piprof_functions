@@ -51,14 +51,14 @@ async function aplicarAvaliacao(snap: any) {
     atualizarListaAlunos: false
   }
 
-  let dataDepois = snap.after.data();
   let dataAntes = snap.before.data();
+  let dataDepois = snap.after.data();
   let id = snap.after.id;
 
   //verificar se a condicao aplicado esta true
   if (!dataDepois.aplicar) { return 0; }
 
-  console.log("INICIAR APLICAR")
+  console.log("Aplicando avaliacao. id: " + id);
 
   let listaQuestoesNovas: any = false;
   if (dataDepois.questaoAplicadaFunction !== null) {
@@ -70,31 +70,64 @@ async function aplicarAvaliacao(snap: any) {
     listaAlunosNovos = dataDepois.aplicadaPAluno.filter((item: any) => dataDepois.aplicadaPAlunoFunction.indexOf(item) < 0)
   }
 
-  if ((dataDepois.questaoAplicadaFunction === null || dataDepois.questaoAplicadaFunction.length == 0) && (dataDepois.aplicadaPAlunoFunction === null || dataDepois.aplicadaPAlunoFunction.length == 0)) {
-
-    console.log("Aplicar avaliacao: CASO 01")
+  if (
+    (dataDepois.questaoAplicadaFunction === null || dataDepois.questaoAplicadaFunction.length == 0) &&
+    (dataDepois.aplicadaPAlunoFunction === null || dataDepois.aplicadaPAlunoFunction.length == 0)
+  ) {
     // CASO 01 - todas os questoes para todos os alunos ( todos os aluno para todas as questoes )
+    console.log("Aplicando avaliacao. CASO 01")
     marcadorAtualizacao.atualizarListaAlunos = true;
     marcadorAtualizacao.atualizarListaQuestoes = true;
+    console.log("Aplicando avaliacao. CASO 01. dataDepois.questaoAplicada = " + dataDepois.questaoAplicada);
+    console.log("Aplicando avaliacao. CASO 01. dataDepois.aplicadaPAluno = " + dataDepois.aplicadaPAluno);
+    console.log("Aplicando avaliacao. CASO 01. dataDepois.questaoAplicadaFunction = " + dataDepois.questaoAplicadaFunction);
+    console.log("Aplicando avaliacao. CASO 01. dataDepois.aplicadaPAlunoFunction = " + dataDepois.aplicadaPAlunoFunction);
+    console.log("Aplicando avaliacao. CASO 01. marcadorAtualizacao.atualizarListaAlunos = " + marcadorAtualizacao.atualizarListaAlunos);
+    console.log("Aplicando avaliacao. CASO 01. marcadorAtualizacao.atualizarListaQuestoes = " + marcadorAtualizacao.atualizarListaQuestoes);
     return iniciarProcessoAplicarAvaliacao(dataDepois.questaoAplicada, dataDepois.aplicadaPAluno, id, dataDepois, marcadorAtualizacao);
 
-  } else if ((listaQuestoesNovas && listaQuestoesNovas.length > 0) && (dataDepois.aplicadaPAlunoFunction === null || listaAlunosNovos.length == 0)) {
-
-    console.log("Aplicar avaliacao: CASO 02")
+  } else if (
+    (listaQuestoesNovas && listaQuestoesNovas.length > 0) &&
+    (dataDepois.aplicadaPAlunoFunction === null || listaAlunosNovos.length == 0)
+  ) {
     // CASO 02 - Questoes novas para todos os alunos
+    console.log("Aplicando avaliacao. CASO 02")
     marcadorAtualizacao.atualizarListaQuestoes = true;
+    console.log("Aplicando avaliacao. CASO 02. dataDepois.questaoAplicada = " + dataDepois.questaoAplicada);
+    console.log("Aplicando avaliacao. CASO 02. dataDepois.aplicadaPAluno = " + dataDepois.aplicadaPAluno);
+    console.log("Aplicando avaliacao. CASO 02. dataDepois.questaoAplicadaFunction = " + dataDepois.questaoAplicadaFunction);
+    console.log("Aplicando avaliacao. CASO 02. dataDepois.aplicadaPAlunoFunction = " + dataDepois.aplicadaPAlunoFunction);
+    console.log("Aplicando avaliacao. CASO 02. listaQuestoesNovas = " + listaQuestoesNovas);
+    console.log("Aplicando avaliacao. CASO 02. listaAlunosNovos = " + listaAlunosNovos);
+    console.log("Aplicando avaliacao. CASO 02. marcadorAtualizacao.atualizarListaAlunos = " + marcadorAtualizacao.atualizarListaAlunos);
+    console.log("Aplicando avaliacao. CASO 02. marcadorAtualizacao.atualizarListaQuestoes = " + marcadorAtualizacao.atualizarListaQuestoes);
     return iniciarProcessoAplicarAvaliacao(listaQuestoesNovas, dataDepois.aplicadaPAluno, id, dataDepois, marcadorAtualizacao);
 
   } else if ((dataDepois.questaoAplicadaFunction === null || listaQuestoesNovas.length == 0) && (listaAlunosNovos && listaAlunosNovos.length > 0)) {
-
-    console.log("Aplicar avaliacao: CASO 03")
     // CASO 03 - Alunos novos para todas as questoes
+    console.log("Aplicando avaliacao. CASO 03")
+    marcadorAtualizacao.atualizarListaAlunos = true;
+    console.log("Aplicando avaliacao. CASO 03. dataDepois.questaoAplicada = " + dataDepois.questaoAplicada);
+    console.log("Aplicando avaliacao. CASO 03. dataDepois.aplicadaPAluno = " + dataDepois.aplicadaPAluno);
+    console.log("Aplicando avaliacao. CASO 03. dataDepois.questaoAplicadaFunction = " + dataDepois.questaoAplicadaFunction);
+    console.log("Aplicando avaliacao. CASO 03. dataDepois.aplicadaPAlunoFunction = " + dataDepois.aplicadaPAlunoFunction);
+    console.log("Aplicando avaliacao. CASO 03. listaQuestoesNovas = " + listaQuestoesNovas);
+    console.log("Aplicando avaliacao. CASO 03. listaAlunosNovos = " + listaAlunosNovos);
+    console.log("Aplicando avaliacao. CASO 03. marcadorAtualizacao.atualizarListaAlunos = " + marcadorAtualizacao.atualizarListaAlunos);
+    console.log("Aplicando avaliacao. CASO 03. marcadorAtualizacao.atualizarListaQuestoes = " + marcadorAtualizacao.atualizarListaQuestoes);
     return iniciarProcessoAplicarAvaliacao(dataDepois.questaoAplicada, listaAlunosNovos, id, dataDepois, marcadorAtualizacao);
 
   } else if ((listaQuestoesNovas && listaQuestoesNovas.length > 0) && (listaAlunosNovos && listaAlunosNovos.length > 0)) {
-
-    console.log("Aplicar avaliacao: CASO 04")
     // CASO 04 - novos alunos para questoes, e novas questoes para alunos.
+    console.log("Aplicando avaliacao. CASO 04")
+    console.log("Aplicando avaliacao. CASO 04. dataDepois.questaoAplicada = " + dataDepois.questaoAplicada);
+    console.log("Aplicando avaliacao. CASO 04. dataDepois.aplicadaPAluno = " + dataDepois.aplicadaPAluno);
+    console.log("Aplicando avaliacao. CASO 04. dataDepois.questaoAplicadaFunction = " + dataDepois.questaoAplicadaFunction);
+    console.log("Aplicando avaliacao. CASO 04. dataDepois.aplicadaPAlunoFunction = " + dataDepois.aplicadaPAlunoFunction);
+    console.log("Aplicando avaliacao. CASO 04. listaQuestoesNovas = " + listaQuestoesNovas);
+    console.log("Aplicando avaliacao. CASO 04. listaAlunosNovos = " + listaAlunosNovos);
+    console.log("Aplicando avaliacao. CASO 04. marcadorAtualizacao.atualizarListaAlunos = " + marcadorAtualizacao.atualizarListaAlunos);
+    console.log("Aplicando avaliacao. CASO 04. marcadorAtualizacao.atualizarListaQuestoes = " + marcadorAtualizacao.atualizarListaQuestoes);
 
     let marcadorAtualizacao1 = {
       atualizarListaQuestoes: true,
@@ -106,12 +139,13 @@ async function aplicarAvaliacao(snap: any) {
       atualizarListaQuestoes: false,
       atualizarListaAlunos: true
     }
-    iniciarProcessoAplicarAvaliacao(dataAntes.questaoAplicada, listaAlunosNovos, id, dataDepois, marcadorAtualizacao2);
+    iniciarProcessoAplicarAvaliacao(dataAntes.questaoAplicadaFunction, listaAlunosNovos, id, dataDepois, marcadorAtualizacao2);
     return 0;
 
   } else {
+    console.log("Aplicando avaliacao. Nenhuma condicao foi atingida");
+    atualizarAplicarAplicada(id);
 
-    console.log("Aplicacao >> Nenhuma condicao foi atingida")
     return 0;
 
   }
@@ -128,13 +162,13 @@ async function aplicarAvaliacao(snap: any) {
  */
 async function iniciarProcessoAplicarAvaliacao(listaQuestoes: any, listaAlunos: any, avaliacaoId: any, avaliacaoData: any, marcadorAtualizacao: any) {
 
-  console.log(listaQuestoes.length + " questoes aplicadas")
+  console.log("Aplicando avaliacao. listaQuestoes.length = " + listaQuestoes.length)
   //pegar lista de documents de questoes
-  await getListaDocuments(listaQuestoes, 'Questao').then((listaQuestoes) => {
+  await getListaDocuments(listaQuestoes, 'Questao').then(async (listaQuestoesFiltrada) => {
     //pegar a lista de documents de alunos
-    getListaDocuments(listaAlunos, 'Usuario').then((listaAlunosFiltrada) => {
+    await getListaDocuments(listaAlunos, 'Usuario').then(async (listaAlunosFiltrada) => {
       //aplicar questao para cada aluno
-      aplicarListaQuestoesEmListaAlunos(listaAlunosFiltrada, listaQuestoes, avaliacaoData, avaliacaoId, marcadorAtualizacao).then((msg) => {
+      await aplicarListaQuestoesEmListaAlunos(listaAlunosFiltrada, listaQuestoesFiltrada, avaliacaoId, avaliacaoData, marcadorAtualizacao).then((msg) => {
         console.log(msg);
 
         //Atualizar lista aplicadaPAlunoFunction, questaoAplicadaFunction
@@ -155,32 +189,32 @@ async function iniciarProcessoAplicarAvaliacao(listaQuestoes: any, listaAlunos: 
  * @param avaliacaoData 
  * @param avaliacaoId 
  */
-function aplicarListaQuestoesEmListaAlunos(listaAlunos: any, listaQuestoes: any, avaliacaoData: any, avaliacaoId: any, marcadorAtualizacao: any) {
+function aplicarListaQuestoesEmListaAlunos(listaAlunos: any, listaQuestoes: any, avaliacaoId: any, avaliacaoData: any, marcadorAtualizacao: any) {
   return new Promise((resolve, reject) => {
-    listaQuestoes.forEach(async (questao: any, index: any, arrayQuestao: any) => {
+    listaQuestoes.forEach(async (questao: any, index: any, array: any) => {
       let quetaoData = questao.data()
       await DatabaseReferences.Simulacao.where('problema.id', '==', quetaoData.problema.id).get().then(async (listaSimulacao) => {
         //console.log("Quantidade situacoes >> " + listaSimulacao.docs.length)
         // para cada questao aplicar para lista de alunos
-        await aplicarTarefaParaCadaAluno(listaAlunos, questao, avaliacaoData, avaliacaoId, listaSimulacao.docs, marcadorAtualizacao).then(() => {
+        await aplicarTarefaParaCadaAluno(listaAlunos, questao, avaliacaoId, avaliacaoData, listaSimulacao.docs, marcadorAtualizacao).then(() => {
           // Atualizar campo aplicar, aplicado na avaliacao
-          atualizarAplicarAplicado(avaliacaoId);
+          atualizarAplicarAplicada(avaliacaoId);
         });
       })
-      if ((index + 1) >= arrayQuestao.length) {
-        await resolve("Fim da aplicacao de tarefas");
+      if ((index + 1) >= array.length) {
+        resolve("Fim da aplicacao de tarefas");
       }
     });
   })
 }
 
-function aplicarTarefaParaCadaAluno(listaAluno: any, questaoData: any, avaliacaoData: any, avaliacaoId: any, simulacaoLista: any, marcadorAtualizacao: any) {
+function aplicarTarefaParaCadaAluno(listaAlunos: any, questao: any, avaliacaoId: any, avaliacaoData: any, simulacaoLista: any, marcadorAtualizacao: any) {
   return new Promise((resolve, reject) => {
-    listaAluno.forEach((aluno: any, index: any, arrayAlunos: any) => {
+    listaAlunos.forEach((aluno: any, index: any, array: any) => {
       let simulacaoNumero = getNumeroAleatorio(0, simulacaoLista.length - 1);
       //console.log("ProblemaNum : " + simulacaoNumero + " Lista: " + simulacaoLista[simulacaoNumero])
-      gerarSalvarNovoDocumentDeTarefa(aluno, questaoData, avaliacaoData, avaliacaoId, simulacaoLista[simulacaoNumero], marcadorAtualizacao)
-      if ((index + 1) >= arrayAlunos.length) {
+      gerarSalvarNovoDocumentDeTarefa(aluno, questao, avaliacaoId, avaliacaoData, simulacaoLista[simulacaoNumero], marcadorAtualizacao)
+      if ((index + 1) >= array.length) {
         resolve("Fim de percorrer lista de alunos");
       }
     });
@@ -188,15 +222,11 @@ function aplicarTarefaParaCadaAluno(listaAluno: any, questaoData: any, avaliacao
 
 }
 
-function gerarSalvarNovoDocumentDeTarefa(aluno: any, questao: any, avaliacaoData: any, avaliacaoId: any, simulacao: any, marcadorAtualizacao: any) {
-  let foto = null;
-  if (aluno.data().foto !== null && aluno.data().foto.url !== null) {
-    foto = aluno.data().foto.url;
-  }
+function gerarSalvarNovoDocumentDeTarefa(aluno: any, questao: any, avaliacaoId: any, avaliacaoData: any, simulacao: any, marcadorAtualizacao: any) {
+
   let tarefa = {
     aluno: {
-      // foto: aluno.data().foto.url || null,
-      foto: foto,
+      foto: aluno.data().foto.url,
       id: aluno.id,
       nome: aluno.data().nome
     },
@@ -225,22 +255,34 @@ function gerarSalvarNovoDocumentDeTarefa(aluno: any, questao: any, avaliacaoData
 
   DatabaseReferences.Tarefa.doc().set(tarefa).then(() => {
     console.log("Nova tarefa salva >> ")
+    atualizarQuestaoAplicada(questao.id);
   }).catch((Err) => {
     console.log("Erro ao salvar nova tarefa >> " + Err)
   })
 }
 
+function atualizarQuestaoAplicada(questaoID: any) {
+  DatabaseReferences.Questao.doc(questaoID).set({
+    aplicada: true
+  }, { merge: true }).then(() => {
+    //console.log("OK 02")
+  }).catch((err) => {
+    console.log("atualizarQuestaoAplicada. questaoID: " + questaoID + ". Erro " + err)
+  })
+}
 
-function atualizarAplicarAplicado(avaliacaoId: any) {
+function atualizarAplicarAplicada(avaliacaoId: any) {
   DatabaseReferences.Avaliacao.doc(avaliacaoId).set({
     aplicar: false,
     aplicada: true
   }, { merge: true }).then(() => {
     //console.log("OK 02")
   }).catch((err) => {
-    console.log("Err 02 " + err)
+    console.log("atualizarAplicarAplicada. avaliacaoId: " + avaliacaoId + ". Erro " + err)
   })
 }
+
+
 
 function atualizarListaUsuariosAplicados(listaUsuarios: any, avaliacaoId: any) {
   DatabaseReferences.Avaliacao.doc(avaliacaoId).set({
@@ -272,15 +314,15 @@ function atualizarListaQuestoesAplicados(listaQuestoes: any, avaliacaoId: any) {
 function getListaDocuments(listaIdsDocumentos: any, collection: any) {
   return new Promise((resolve, reject: any) => {
     let listaResultado: any = [];
-    listaIdsDocumentos.forEach(async (item: any, index: any, array: any) => {
-      await DatabaseReferences.db.collection(collection).doc(item).get().then((document) => {
+    listaIdsDocumentos.forEach(async (idDoc: any, index: any, array: any) => {
+      await DatabaseReferences.db.collection(collection).doc(idDoc).get().then((document) => {
         listaResultado.push(document);
       }).catch((err) => {
-        console.log("Erro ao tentar " + collection + " id: " + item)
+        console.log("getListaDocuments. Erro. Col.: " + collection + " Id: " + idDoc);
         reject("");
       })
       if ((index) + 1 >= array.length) {
-        resolve(listaResultado)
+        resolve(listaResultado);
       }
     });
   });

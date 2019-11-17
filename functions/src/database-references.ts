@@ -18,12 +18,25 @@ export default class DatabaseReferences {
   public static Upload = databaseReferences.collection('Upload');
 
 
+
+  public static updateDocumentById(collectionName: any, documentId: any, updateJsonData: any) {
+    console.log("updateDocumentById. Entrada Col.: " + collectionName + " field: " + documentId + " json" + updateJsonData);
+
+    this.db.collection(collectionName).doc(documentId).update(updateJsonData).then(() => {
+      console.log("updateDocumentById. Atualizado  Col.: " + collectionName + " id: " + documentId);
+
+    }).catch((error: any) => {
+      console.log("updateDocumentById. Error getting documents.  Col.: " + collectionName + " field: " + documentId + " json" + updateJsonData, error);
+    })
+  }
+
+
   public static updateDocumentWhereEquals(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
     console.log("updateDocumentWhereEquals. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
 
-    this.db.collection(collectionName).where(fieldName, '==', value).get().then( (querySnapShot: any) => {
+    this.db.collection(collectionName).where(fieldName, '==', value).get().then((querySnapShot: any) => {
       if (querySnapShot.docs.length > 0) {
-        querySnapShot.docs.forEach( (docRef: any) => {
+        querySnapShot.docs.forEach((docRef: any) => {
           this.db.collection(collectionName).doc(docRef.id).update(updateJsonData).then(() => {
             console.log("updateDocumentWhereEquals. Atualizado  Col.: " + collectionName + " id: " + docRef.id);
           })
@@ -38,9 +51,9 @@ export default class DatabaseReferences {
   public static updateDocumentWhereArrayContains(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
     console.log("updateDocumentWhereArrayContains. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
 
-    this.db.collection(collectionName).where(fieldName, 'array-contains', value).get().then( (querySnapShot: any) => {
+    this.db.collection(collectionName).where(fieldName, 'array-contains', value).get().then((querySnapShot: any) => {
       if (querySnapShot.docs.length > 0) {
-        querySnapShot.docs.forEach( (docRef: any) => {
+        querySnapShot.docs.forEach((docRef: any) => {
           this.db.collection(collectionName).doc(docRef.id).update(updateJsonData).then(() => {
             console.log("updateDocumentWhereArrayContains. Atualizado  Col.: " + collectionName + " id: " + docRef.id);
           })

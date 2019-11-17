@@ -238,18 +238,22 @@ function gerarSalvarNovoDocumentDeTarefa(aluno: any, questao: any, avaliacaoId: 
       id: questao.id,
       numero: questao.data().numero
     },
-    fim: avaliacaoData.inicio,
-    inicio: avaliacaoData.fim,
-    professor: avaliacaoData.professor,
+    simulacao: {
+      id: simulacao.id,
+      nome: simulacao.data().nome
+    },
     turma: avaliacaoData.turma,
+    professor: avaliacaoData.professor,
     problema: questao.data().problema,
-    simulacao: simulacao.id,
-    tempo: questao.data().tempo,
-    tentativa: questao.data().tentativa,
-    questaoNota: questao.data().nota,
     variavel: simulacao.data().variavel,
     gabarito: simulacao.data().gabarito,
+    aberta: true,
+    inicio: avaliacaoData.inicio,
+    fim: avaliacaoData.fim,
+    tempo: questao.data().tempo,
+    tentativa: questao.data().tentativa,
     erroRelativo: questao.data().erroRelativo,
+    questaoNota: questao.data().nota,
     avaliacaoNota: avaliacaoData.nota,
   }
 

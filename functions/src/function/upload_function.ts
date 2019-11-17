@@ -10,9 +10,11 @@ export function uploadOnUpdate(docSnapShot: any) {
 
   console.log("uploadOnUpdate :: " + docId);
 
-  if (docBeforeData.upload == false && docAfterData.upload == true && docAfterData.updateCollection.collection=='Usuario') {
-    console.log("upload.upload alterado. Atualizando em: Aluno.")
-    DatabaseReferences.updateDocumentWhereEquals('Usuario', 'foto.uploadID', docId, { 'foto.url': docAfterData.url })
+  // if (docBeforeData.upload == false && docAfterData.upload == true && docAfterData.updateCollection.collection=='Usuario') {
+    if (docBeforeData.upload == false && docAfterData.upload == true) {
+      console.log("upload.upload alterado. Atualizando em: Aluno.")
+      let field: string = docAfterData.updateCollection.field as string;
+    DatabaseReferences.updateDocumentById(docAfterData.updateCollection.collection, docAfterData.updateCollection.document, { [field] : docAfterData.url })
   } 
   return 0
 }

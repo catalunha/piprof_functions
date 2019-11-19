@@ -18,6 +18,18 @@ export function questaoOnUpdate(docSnapShot: any) {
     console.log("Questao.fim alterado. Atualizando em: Tarefa.")
     DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'questao.id', docId, { 'fim': docAfterData.fim })
   }
+  if (docBeforeData.tempo != docAfterData.tempo) {
+    console.log("Questao.tempo alterado. Atualizando em: Tarefa.")
+    DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'questao.id', docId, { 'tempo': docAfterData.tempo })
+  }
+  if (docBeforeData.tentativa != docAfterData.tentativa) {
+    console.log("Questao.tentativa alterado. Atualizando em: Tarefa.")
+    DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'questao.id', docId, { 'tentativa': docAfterData.tentativa })
+  }
+  if (docBeforeData.erroRelativo != docAfterData.erroRelativo) {
+    console.log("Questao.erroRelativo alterado. Atualizando em: Tarefa.")
+    DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'questao.id', docId, { 'erroRelativo': docAfterData.erroRelativo })
+  }
   if (docBeforeData.nota != docAfterData.nota) {
     console.log("Questao.nota alterado. Atualizando em: Tarefa.")
     DatabaseReferences.updateDocumentWhereEquals('Tarefa', 'questao.id', docId, { 'questaoNota': docAfterData.nota })

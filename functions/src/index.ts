@@ -45,3 +45,7 @@ import * as functions from 'firebase-functions';
 // // // Upload
 // import * as uploadFunction from './function/upload_function';
 // exports.uploadOnUpdate = functions.firestore.document('Upload/{uploadId}').onUpdate(uploadFunction.uploadOnUpdate);
+
+// RelatorioCsv
+import * as relatorioFunction from './function/relatorio_function';
+exports.relatorioOnUpdate = functions.firestore.document('Relatorio/{relatorioId}').onUpdate(relatorioFunction.relatorioOnUpdate);

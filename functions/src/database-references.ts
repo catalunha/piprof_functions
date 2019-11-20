@@ -8,120 +8,101 @@ export default class DatabaseReferences {
   public static db = databaseReferences;
 
   //referencias auxiliares
-  public static usuariosRef = databaseReferences.collection('Usuario');
-  public static avaliacaoRef = databaseReferences.collection('Avaliacao');
-  public static questaoRef = databaseReferences.collection('Questao');
-  public static situacaoRef = databaseReferences.collection('Situacao');
-  public static simulacaoRef = databaseReferences.collection('Simulacao');
-  public static tarefaRef = databaseReferences.collection('Tarefa');
-
-  
-  // public static questionarioAplicadoRef = databaseReferences.collection('QuestionarioAplicado');
-  // public static PerguntaAplicadaRef = databaseReferences.collection('PerguntaAplicada');
-
-  // public static pefilRef = databaseReferences.collection('Perfil');
-  // public static uploadRef = databaseReferences.collection('Upload');
-  // public static usuarioPerfilRef = databaseReferences.collection('UsuarioPerfil');
-  // public static documentoRef = databaseReferences.collection('Documento');
-
-  // public static setorCensitarioPainelRef = databaseReferences.collection('SetorCensitarioPainel');
-  // public static painelRef = databaseReferences.collection('Painel');
-  // public static setorCensitarioRef = databaseReferences.collection('SetorCensitario');
-
-  // public static questionarioRef = databaseReferences.collection('Questionario');
-  // public static perguntaRef = databaseReferences.collection('Pergunta');
-  // public static eixoRef = databaseReferences.collection('Eixo');
-
-  // public static controleTarefaRef = databaseReferences.collection('ControleTarefa');
-  // public static controleAcaoRef = databaseReferences.collection('ControleAcao');
+  public static Usuario = databaseReferences.collection('Usuario');
+  public static Avaliacao = databaseReferences.collection('Avaliacao');
+  public static Questao = databaseReferences.collection('Questao');
+  public static Problema = databaseReferences.collection('Problema');
+  public static Simulacao = databaseReferences.collection('Simulacao');
+  public static Tarefa = databaseReferences.collection('Tarefa');
+  public static Turma = databaseReferences.collection('Turma');
+  public static Upload = databaseReferences.collection('Upload');
 
 
-  public static atualizarNomeDeCollectionEmOutrasCollections(collectionNome: any, whereRefId: any, novaRefId: any, updateJsonData: any) {
-    this.db.collection(collectionNome).where(whereRefId, '==', novaRefId).get().then(async (dadosFiltrado: any) => {
-      if (dadosFiltrado.docs.length > 0) {
-        dadosFiltrado.docs.forEach(async (dadoFiltrado: any, index_filt: any, array_filt: any) => {
-          this.db.collection(collectionNome).doc(dadoFiltrado.id).update(updateJsonData).then(() => {
-            //console.log("ATUALIZAR NOME COLECTION " + collectionNome + " >> " + dadoFiltrado.id);
+
+  public static updateDocumentById(collectionName: any, documentId: any, updateJsonData: any) {
+    console.log("updateDocumentById. Entrada Col.: " + collectionName + " field: " + documentId + " json" + updateJsonData);
+
+    this.db.collection(collectionName).doc(documentId).update(updateJsonData).then(() => {
+      console.log("updateDocumentById. Atualizado  Col.: " + collectionName + " id: " + documentId);
+
+    }).catch((error: any) => {
+      console.log("updateDocumentById. Error getting documents.  Col.: " + collectionName + " field: " + documentId + " json" + updateJsonData, error);
+    })
+  }
+
+
+  public static updateDocumentWhereEquals(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
+    console.log("updateDocumentWhereEquals. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
+
+    this.db.collection(collectionName).where(fieldName, '==', value).get().then((querySnapShot: any) => {
+      if (querySnapShot.docs.length > 0) {
+        querySnapShot.docs.forEach((docRef: any) => {
+          this.db.collection(collectionName).doc(docRef.id).update(updateJsonData).then(() => {
+            console.log("updateDocumentWhereEquals. Atualizado  Col.: " + collectionName + " id: " + docRef.id);
           })
         })
       }
-    }).catch((err: any) => {
-      console.log('Error getting documents : atualizarNomeUsuarioEmCollection ', err)
+    }).catch((error: any) => {
+      console.log('updateDocumentWhereEquals. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error)
     })
-
   }
 
-  // public static atualizarDadosDeCollectionEmOutrasCollectionsMerge(collectionNome: any, whereRefId: any, novaRefId: any, updateJsonData: any) {
-  //     this.db.collection(collectionNome).where(whereRefId, '==', novaRefId).get().then(async (dadosFiltrado: any) => {
-  //         if (dadosFiltrado.docs.length > 0) {
-  //             dadosFiltrado.docs.forEach(async (dadoFiltrado: any, index_filt: any, array_filt: any) => {
-  //                 this.db.collection(collectionNome).doc(dadoFiltrado.id).set(updateJsonData, { merge: true }).then(() => {
-  //                     //console.log("ATUALIZAR NOME COLECTION " + collectionNome + " >> " + dadoFiltrado.id);
-  //                 })
-  //             })
-  //         }
-  //     }).catch((err: any) => {
-  // public static criarUsuario(data: any) {
-  //     admin.auth().createUser({
-  //         email: data.email,
-  //         emailVerified: false,
-  //         password: "pmsb22to",
-  //         //displayName: data.nome,
-  //     }).then(function (userRecord) {
 
-  //         console.log("Successfully created new user:", userRecord.uid);
+  public static updateDocumentWhereArrayContains(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
+    console.log("updateDocumentWhereArrayContains. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
 
-  //         // let email: any = userRecord.email;
-  //         // admin.auth().generateEmailVerificationLink(email).then((result) => {
-  //         //     console.log("Send verification email : " + result)
-  //         // });
+    this.db.collection(collectionName).where(fieldName, 'array-contains', value).get().then((querySnapShot: any) => {
+      if (querySnapShot.docs.length > 0) {
+        querySnapShot.docs.forEach((docRef: any) => {
+          this.db.collection(collectionName).doc(docRef.id).update(updateJsonData).then(() => {
+            console.log("updateDocumentWhereArrayContains. Atualizado  Col.: " + collectionName + " id: " + docRef.id);
+          })
+        })
+      }
+    }).catch((error: any) => {
+      console.log('updateDocumentWhereArrayContains. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error)
+    })
+  }
 
-  //     }).catch(function (error) {
-  //         console.log("Error creating new user:", error);
-  //     });
-  // }
-  //         console.log('Error getting documents : atualizarNomeUsuarioEmCollection ', err)
-  //     })
 
-  // }
+  public static deleteDocumentGeneric(collectionName: any, fieldName: any, value: any) {
+    console.log("deleteDocumentGeneric. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value);
 
-  // public static apagarDocDeCollectionEmOutrasCollections(collectionNome: any, whereRefId: any, novaRefId: any) {
-  //     this.db.collection(collectionNome).where(whereRefId, '==', novaRefId).get().then(async (dadosFiltrado: any) => {
-  //         if (dadosFiltrado.docs.length > 0) {
-  //             dadosFiltrado.docs.forEach(async (dadoFiltrado: any, index_filt: any, array_filt: any) => {
-  //                 this.db.collection(collectionNome).doc(dadoFiltrado.id).delete().then(() => {
-  //                     console.log("DELETAR DOC NA COLECTION " + collectionNome + " >> " + dadoFiltrado.id);
-  //                 })
-  //             })
-  //         }
-  //     }).catch((err: any) => {
-  //         console.log('Error getting documents : apagarDocDeCollectionEmOutrasCollections ', err)
-  //     })
+    this.db.collection(collectionName).where(fieldName, '==', value).get().then((querySnapShot: any) => {
+      if (querySnapShot.docs.length > 0) {
+        querySnapShot.docs.forEach((docRef: any) => {
+          this.db.collection(collectionName).doc(docRef.id).delete().then(() => {
+            console.log("deleteDocumentGeneric. Deletado  Col.: " + collectionName + " id: " + docRef.id);
+          })
+        })
+      }
+    }).catch((error: any) => {
+      console.log('deleteDocumentGeneric. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error);
+    })
+  }
 
-  // }
-
-  public static criarUsuario(data: any) {
+  public static criarUsuario(usuarioNovo: any) {
     admin.auth().createUser({
-      email: data.email,
+      email: usuarioNovo.email,
       emailVerified: false,
-      password: "piprofbrintec",
-      //displayName: data.nome,
-    }).then(function (userRecord) {
+      password: "pialunobrintec",
+    }).then(function (newUser: any) {
 
-      console.log("Successfully created new user:", userRecord.uid);
+      console.log("criarUsuario. Usuario criado com sucesso. id: ", newUser.uid);
 
-      DatabaseReferences.usuariosRef.doc().set({
-        ativo: data.ativo,
-        email: data.email,
-        matricula: data.matricula,
-        nome: data.nome,
-        rota: data.rota,
-        turma: [data.turma],
+      DatabaseReferences.Usuario.doc(newUser.uid).set({
+        ativo: usuarioNovo.ativo,
+        email: usuarioNovo.email,
+        matricula: usuarioNovo.matricula,
+        nome: usuarioNovo.nome,
+        rota: usuarioNovo.rota,
+        turma: [usuarioNovo.turma],
+        foto: usuarioNovo.foto,
         professor: false,
       })
 
-    }).catch(function (error) {
-      console.log("Error creating new user:", error);
+    }).catch(function (error: any) {
+      console.log("criarUsuario. Error creating new user:", error);
     });
   }
 

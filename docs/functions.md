@@ -23,6 +23,14 @@ Na comparação de datas apenas a ultima alternativa funciona.
 ~~~
 
 
+# node
+https://askubuntu.com/questions/426750/how-can-i-update-my-nodejs-to-the-latest-version
+~~~
+# Using Ubuntu
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
+~~~
+
 # bib ts
 
 https://medium.com/@oieduardorabelo/typescript-o-guia-definitivo-1a63b04259cc

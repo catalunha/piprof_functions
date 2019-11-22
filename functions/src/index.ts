@@ -8,19 +8,19 @@ import * as functions from 'firebase-functions';
 // });
 
 
-// // USUARIO
-// import * as usuarioFunction from './function/usuario_function';
+// // Usuario
+import * as usuarioFunction from './function/usuario_function';
 // exports.usuarioOnUpdate = functions.firestore.document('Usuario/{usuarioId}').onUpdate(usuarioFunction.usuarioOnUpdate);
-// exports.usuarioOnDelete = functions.firestore.document('Usuario/{usuarioId}').onDelete(usuarioFunction.usuarioOnDelete);
+exports.usuarioOnDelete = functions.firestore.document('Usuario/{usuarioId}').onDelete(usuarioFunction.usuarioOnDelete);
 
 // UsuarioNovo
 // import * as usuarioNovoFunction from './function/usuario_novo_function';
 // exports.usuarioNovoOnCreate = functions.firestore.document('UsuarioNovo/{usuarioNovoId}').onCreate(usuarioNovoFunction.usuarioNovoOnCreate);
 
 // // Turma
-// import * as turmaFunction from './function/turma_function';
+import * as turmaFunction from './function/turma_function';
 // exports.turmaOnUpdate = functions.firestore.document('Turma/{turmaId}').onUpdate(turmaFunction.turmaOnUpdate);
-// exports.turmaOnDelete = functions.firestore.document('Turma/{avaliacaoId}').onDelete(turmaFunction.turmaOnDelete);
+exports.turmaOnDelete = functions.firestore.document('Turma/{avaliacaoId}').onDelete(turmaFunction.turmaOnDelete);
 
 // // Avaliacao
 // import * as avaliacaoFunction from './function/avaliacao_function';
@@ -47,5 +47,5 @@ import * as functions from 'firebase-functions';
 // exports.uploadOnUpdate = functions.firestore.document('Upload/{uploadId}').onUpdate(uploadFunction.uploadOnUpdate);
 
 // RelatorioCsv
-import * as relatorioFunction from './function/relatorio_function';
-exports.relatorioOnUpdate = functions.firestore.document('Relatorio/{relatorioId}').onUpdate(relatorioFunction.relatorioOnUpdate);
+// import * as relatorioFunction from './function/relatorio_function';
+// exports.relatorioOnUpdate = functions.firestore.document('Relatorio/{relatorioId}').onUpdate(relatorioFunction.relatorioOnUpdate);

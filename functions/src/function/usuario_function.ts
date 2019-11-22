@@ -43,10 +43,14 @@ export function usuarioOnDelete(docSnapShot: any) {
   if (docData.professor == true) {
     console.log("usuarioOnDelete. Apagando Turma.");
     DatabaseReferences.deleteDocumentGeneric('Turma', 'professor.id', docId);
+    DatabaseReferences.deleteDocumentGeneric('Avaliacao', 'professor.id', docId);
+    DatabaseReferences.deleteDocumentGeneric('Upload', 'usuario', docId);
+    // Do professor nao apagar Pasta, Problema, Simulacao. Fica como nosso banco de dados.
   }
   if (docData.professor == false) {
     console.log("usuarioOnDelete. Apagando Tarefa. Atualizando Avaliacao | Encontro.");
     DatabaseReferences.deleteDocumentGeneric('Tarefa', 'aluno.id', docId);
+    DatabaseReferences.deleteDocumentGeneric('Upload', 'usuario', docId);
     DatabaseReferences.updateDocumentWhereArrayContains('Encontro', 'aluno', docId, { 'aluno': admin.firestore.FieldValue.arrayRemove(docId)});
     DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'aplicadaPAluno', docId, { 'aplicadaPAluno': admin.firestore.FieldValue.arrayRemove(docId)});
     DatabaseReferences.updateDocumentWhereArrayContains('Avaliacao', 'aplicadaPAlunoFunction', docId, { 'aplicadaPAlunoFunction': admin.firestore.FieldValue.arrayRemove(docId)});

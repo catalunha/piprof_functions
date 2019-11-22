@@ -18,7 +18,12 @@ export default class DatabaseReferences {
   public static Upload = databaseReferences.collection('Upload');
 
 
-
+/**
+ * Atualizar uma documento específico de uma coleção com um json 
+ * @param collectionName Coleção
+ * @param documentId Documento
+ * @param updateJsonData Dados no formato json
+ */
   public static updateDocumentById(collectionName: any, documentId: any, updateJsonData: any) {
     console.log("updateDocumentById. Entrada Col.: " + collectionName + " field: " + documentId + " json" + updateJsonData);
 
@@ -30,7 +35,13 @@ export default class DatabaseReferences {
     })
   }
 
-
+/**
+ * Filtra os documentos de uma coleção que atendem a query de == e atualiza campos naquele documento conforme json
+ * @param collectionName Nome da coleção onde iniciar a busca
+ * @param fieldName Nome do campo a ser referenciado no where ==
+ * @param value valor para comparação
+ * @param updateJsonData json com campo e valor a ser alterado naquele documento encontrado
+ */
   public static updateDocumentWhereEquals(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
     console.log("updateDocumentWhereEquals. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
 
@@ -47,7 +58,13 @@ export default class DatabaseReferences {
     })
   }
 
-
+/**
+ * Filtra os documentos de uma coleção que atendem a query de arrayContains e atualiza campos naquele documento conforme json
+ * @param collectionName Nome da coleção onde iniciar a busca
+ * @param fieldName Nome do campo a ser referenciado no arrayContains
+ * @param value valor que o array contem para comparação
+ * @param updateJsonData json com campo e valor a ser alterado naquele documento encontrado
+ */
   public static updateDocumentWhereArrayContains(collectionName: any, fieldName: any, value: any, updateJsonData: any) {
     console.log("updateDocumentWhereArrayContains. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value + " json" + updateJsonData);
 
@@ -64,7 +81,12 @@ export default class DatabaseReferences {
     })
   }
 
-
+/**
+ * 
+ * @param collectionName Coleção
+ * @param fieldName campo
+ * @param value valor a ser filtrado para
+ */
   public static deleteDocumentGeneric(collectionName: any, fieldName: any, value: any) {
     console.log("deleteDocumentGeneric. Entrada Col.: " + collectionName + " field: " + fieldName + " value: " + value);
 
@@ -80,7 +102,10 @@ export default class DatabaseReferences {
       console.log('deleteDocumentGeneric. Error getting documents.  Col.: ' + collectionName + ' fieldName: ' + fieldName + ' value: ' + value, error);
     })
   }
-
+/**
+ * Cria um novo documento na coleção Usuario
+ * @param usuarioNovo Documento com os dados para criar um novo usuario
+ */
   public static criarUsuario(usuarioNovo: any) {
     admin.auth().createUser({
       email: usuarioNovo.email,

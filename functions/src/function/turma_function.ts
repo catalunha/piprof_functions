@@ -1,4 +1,5 @@
 import DatabaseReferences from "../database-references";
+let admin = require('firebase-admin');
 
 
 // ON UPDATE
@@ -26,6 +27,7 @@ export function turmaOnDelete(docSnapShot: any) {
   console.log("turmaOnDelete. Apagando Avaliacao | Encontro.");
   DatabaseReferences.deleteDocumentGeneric('Avaliacao', 'turma.id', docId);
   DatabaseReferences.deleteDocumentGeneric('Encontro', 'turma.id', docId);
+  DatabaseReferences.updateDocumentWhereArrayContains('Usuario', 'turma', docId, { 'turma': admin.firestore.FieldValue.arrayRemove(docId)});
   return 0;
 }
 

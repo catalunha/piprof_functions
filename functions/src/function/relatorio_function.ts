@@ -1,6 +1,6 @@
 // import DatabaseReferences from "../database-references";
 const admin = require('firebase-admin');
-admin.initializeApp();
+// admin.initializeApp();
 
 
 // ON UPDATE

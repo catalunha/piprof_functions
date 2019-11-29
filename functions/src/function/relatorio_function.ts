@@ -76,7 +76,7 @@ app.get('/listadetarefasdoaluno', (request: any, response: any) => {
 
 
 // /listadeencontros?pedido=<relatorioId>
-app.get('/listadetarefasdoaluno', (request: any, response: any) => {
+app.get('/listadeencontros', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
     console.log("ListaDeEncontros :: Pedido id: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {

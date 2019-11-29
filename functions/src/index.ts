@@ -51,6 +51,6 @@ import * as functions from 'firebase-functions';
 // exports.relatorioOnUpdate = functions.firestore.document('Relatorio/{relatorioId}').onUpdate(relatorioFunction.relatorioOnUpdate);
 
 // Relatorio2Csv
-import * as relatorio2Function from './function/relatorio2_function';
-exports.relatorioOnRequest =  functions.https.onRequest(relatorio2Function.app);
+import * as relatorioFunction from './function/relatorio_function';
+exports.relatorioOnRequest =  functions.https.onRequest(relatorioFunction.app);
 

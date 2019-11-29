@@ -4,7 +4,7 @@ import * as functions from 'firebase-functions';
 // // https://firebase.google.com/docs/functions/typescript
 //
 // export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
+//  response.send("Hello from Firebase! Relatorio...");
 // });
 
 
@@ -49,3 +49,8 @@ import * as functions from 'firebase-functions';
 // RelatorioCsv
 // import * as relatorioFunction from './function/relatorio_function';
 // exports.relatorioOnUpdate = functions.firestore.document('Relatorio/{relatorioId}').onUpdate(relatorioFunction.relatorioOnUpdate);
+
+// Relatorio2Csv
+import * as relatorioFunction from './function/relatorio_function';
+exports.relatorioOnRequest =  functions.https.onRequest(relatorioFunction.app);
+

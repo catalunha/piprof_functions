@@ -1,3 +1,8 @@
+
+// instalar todas as dependnecias do package.json 
+$ npm install
+
+
 # Duvidas
 Quando usar return ?
 Quando usar ;  ?

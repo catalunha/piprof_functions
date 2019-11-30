@@ -12,6 +12,9 @@ const cors = require('cors')({ origin: true });
 export const app = express();
 
 app.use(cors);
+// https://www.npmjs.com/package/json-2-csv-ts
+// https://www.npmjs.com/package/json-2-csv
+// https://www.npmjs.com/package/json2csv
 const json2csv = require("json2csv").parse;
 // /listadealunosdaturma?pedido=<relatorioId>
 app.get('/listadealunosdaturma', (request: any, response: any) => {

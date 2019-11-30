@@ -88,7 +88,7 @@ app.get('/listadeencontros', (request: any, response: any) => {
             throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para ListaDeEncontros.");
         }
         let relatorio = docRelatorio.data();
-        console.log("ListaDeEncontros. Relatorio id: " + docRelatorio.id);
+        // console.log("ListaDeEncontros. Relatorio id: " + docRelatorio.id);
         construirListaDeEncontros(relatorio.turmaId).then((planilha) => {
             const csv = json2csv(planilha);
             response.setHeader(

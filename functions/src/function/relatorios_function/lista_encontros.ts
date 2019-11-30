@@ -22,7 +22,7 @@ export function construirListaDeEncontros(turmaId: any) {
                 const encontroNome: {[index: string]:any} = {}
                 const encontroData: {[index: string]:any} = {}
 
-                listaDeEncontros.forEach((encontroDoc: any, index: any, array: any) => {
+                listaDeEncontros.forEach((encontroDoc: any) => {
                     let encontro = encontroDoc.data();
                     let encontroId = encontroDoc.id;
                     console.log("construirListaDeEncontros. encontroMap do encontroId: " + encontroDoc.id);

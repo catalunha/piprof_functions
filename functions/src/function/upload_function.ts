@@ -8,7 +8,7 @@ export function uploadOnUpdate(docSnapShot: any) {
   const docAfterData = docSnapShot.after.data();
   const docId = docSnapShot.after.id;
 
-  //console.log("uploadOnUpdate :: " + docId);
+  console.log("uploadOnUpdate :: " + docId);
 
   // if (docBeforeData.upload == false && docAfterData.upload == true && docAfterData.updateCollection.collection=='Usuario') {
     if (docBeforeData.upload == false && docAfterData.upload == true) {

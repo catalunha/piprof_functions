@@ -4,11 +4,11 @@
 // admin.initializeApp();
 import DatabaseReferences from "../database-references";
 import { construirListaDeAlunosDaTurma } from "./relatorios_function/lista_alunos_turma";
-import { construirListaDeTarefasDoAluno } from "./relatorios_function/lista_notas_aluno";
 import { construirListaDeEncontros } from "./relatorios_function/lista_encontros";
 import { construirListaDeTarefasDaAvaliacao } from "./relatorios_function/lista_tarefas_avaliacao";
 import { construirListaProblemasDaPasta } from "./relatorios_function/lista_problemas_pasta";
 import { construirListaDeSimulacoesDoProblema } from "./relatorios_function/lista_simulacao_problema";
+import { construirListaDeTarefasDoAluno } from "./relatorios_function/lista_tarefas_aluno";
 
 const express = require('express');
 const cors = require('cors')({ origin: true });
@@ -20,12 +20,10 @@ app.use(cors);
 // https://www.npmjs.com/package/json2csv
 const json2csv = require("json2csv").parse;
 
-
-
 // /listadeencontros?pedido=<relatorioId>
 app.get('/listadeencontros', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    //console.log("ListaDeEncontros :: Pedido id: ", pedidoId);
+    console.log("ListaDeEncontros :: Pedido id: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
             //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeEncontros.');
@@ -56,7 +54,7 @@ app.get('/listadeencontros', (request: any, response: any) => {
 // /listadealunosdaturma?pedido=<relatorioId>
 app.get('/listadealunosdaturma', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    //console.log("ListaDeAlunosDaTurma :: Pedido id: ", pedidoId);
+    console.log("ListaDeAlunosDaTurma :: Pedido id: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
             //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeAlunosDaTurma.');
@@ -87,7 +85,7 @@ app.get('/listadealunosdaturma', (request: any, response: any) => {
 // /listadetarefasdoaluno?pedido=<relatorioId>
 app.get('/listadetarefasdoaluno', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    //console.log("ListaDeTarefasDoAluno :: Pedido id: ", pedidoId);
+    console.log("ListaDeTarefasDoAluno :: Pedido id: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
             //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeTarefasDoAluno.');
@@ -119,7 +117,7 @@ app.get('/listadetarefasdoaluno', (request: any, response: any) => {
 // /listadetarefasdaavaliacao?pedido=<relatorioId>
 app.get('/listadetarefasdaavaliacao', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    //console.log("ListaDeTarefasDaAvaliacao :: relatorioId: ", pedidoId);
+    console.log("ListaDeTarefasDaAvaliacao :: relatorioId: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
             //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeTarefasDaAvaliacao.');
@@ -150,7 +148,7 @@ app.get('/listadetarefasdaavaliacao', (request: any, response: any) => {
 // /listaproblemasdapasta?pedido=<relatorioId>
 app.get('/listaproblemasdapasta', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    //console.log("ListaProblemasDaPasta :: relatorioId: ", pedidoId);
+    console.log("ListaProblemasDaPasta :: relatorioId: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
             //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaProblemasDaPasta.');
@@ -180,7 +178,7 @@ app.get('/listaproblemasdapasta', (request: any, response: any) => {
 // /listadesimulacoesdoproblema?pedido=<relatorioId>
 app.get('/listadesimulacoesdoproblema', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    //console.log("ListaDeSimulacoesDoProblema :: relatorioId: ", pedidoId);
+    console.log("ListaDeSimulacoesDoProblema :: relatorioId: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
             //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeSimulacoesDoProblema.');

@@ -41,7 +41,7 @@ export function construirListaDeTarefasDaAvaliacao(avaliacaoId: any) {
                     let tarefa = item.data();
                     let nota = '=';
                     for (const [key, value] of Object.entries(tarefa.gabarito)) {
-                        //console.log(key);
+                        console.log(key);
                         let item: any = value;
                         nota = nota + '+' + item.nota;
                     }

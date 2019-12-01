@@ -5,7 +5,7 @@ export function usuarioNovoOnCreate(docSnapShot: any) {
   const docData = docSnapShot.data();
   const docId = docSnapShot.id;
 
-  //console.log("usuarioNovoOnCreate :: " + docId);
+  console.log("usuarioNovoOnCreate :: " + docId);
 
   return DatabaseReferences.Usuario.where("email", "==", docData.email).get().then((usuario: any) => {
     if (usuario.docs.length > 0) {

@@ -44,14 +44,14 @@ export function construirListaDeTarefasDoAluno(usuarioId: any) {
                     planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'modificado', f: tarefa.modificado != null ? (tarefa.modificado as Timestamp).toDate().toLocaleString() : '' });
 
                     for (const [key, value] of Object.entries(tarefa.variavel)) {
-                        //console.log(key);
+                        console.log(key);
                         let item: any = value;
                         planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'variavel_nome', f: item.nome });
                         planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'variavel_valor', f: item.valor });
                     }
                     let nota = '=';
                     for (const [key, value] of Object.entries(tarefa.gabarito)) {
-                        //console.log(key);
+                        console.log(key);
                         let item: any = value;
                         nota = nota + '+' + item.nota;
 

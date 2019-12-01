@@ -5,7 +5,7 @@ import { Timestamp } from "@google-cloud/firestore";
 export function construirListaDeEncontros(turmaId: any) {
     return new Promise((resolve, reject) => {
         let planilha: any = [];
-        planilha.push({ aluno_mat: '', aluno_nome: '' });
+        planilha.push({ aluno_foto: '', aluno_mat: '', aluno_nome: '' });
 
         DatabaseReferences.db.collection('Usuario').where('turma', 'array-contains', turmaId).orderBy("nome", "asc").get().then((queryListaDeAlunos) => {
             //console.log("construirListaDeEncontros. queryListaDeAlunos.size: " + queryListaDeAlunos.size);
@@ -40,6 +40,7 @@ export function construirListaDeEncontros(turmaId: any) {
                     // let alunoMarcadoMap = {};
                     let aluno: any = alunoDoc.data();
                     let alunoId: any = alunoDoc.id;
+                    alunoMarcadoMap['aluno_foto'] = '=IMAGE("' + aluno.foto.url + '")';
                     alunoMarcadoMap['aluno_mat'] = aluno.matricula;
                     alunoMarcadoMap['aluno_nome'] = aluno.nome;
                     //console.log("construirListaDeEncontros. alunoId: " + alunoId);

@@ -25,14 +25,14 @@ const json2csv = require("json2csv").parse;
 // /listadeencontros?pedido=<relatorioId>
 app.get('/listadeencontros', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    console.log("ListaDeEncontros :: Pedido id: ", pedidoId);
+    //console.log("ListaDeEncontros :: Pedido id: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
-            console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeEncontros.');
+            //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeEncontros.');
             throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para ListaDeEncontros.");
         }
         let relatorio = docRelatorio.data();
-        // console.log("ListaDeEncontros. Relatorio id: " + docRelatorio.id);
+        // //console.log("ListaDeEncontros. Relatorio id: " + docRelatorio.id);
         construirListaDeEncontros(relatorio.turmaId).then((planilha) => {
             const csv = json2csv(planilha);
             response.setHeader(
@@ -42,7 +42,7 @@ app.get('/listadeencontros', (request: any, response: any) => {
             response.set("Content-Type", "text/csv");
             response.status(200).send(csv);
             DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
-                console.log("ListaDeEncontros. Deletado  pedidoId: " + pedidoId);
+                //console.log("ListaDeEncontros. Deletado  pedidoId: " + pedidoId);
             })
         }).catch((err) => {
             response.status(403).send('Desculpe. Não foi possível construir a ListaDeEncontros' + err);
@@ -56,14 +56,14 @@ app.get('/listadeencontros', (request: any, response: any) => {
 // /listadealunosdaturma?pedido=<relatorioId>
 app.get('/listadealunosdaturma', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    console.log("ListaDeAlunosDaTurma :: Pedido id: ", pedidoId);
+    //console.log("ListaDeAlunosDaTurma :: Pedido id: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
-            console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeAlunosDaTurma.');
+            //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeAlunosDaTurma.');
             throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para ListaDeAlunosDaTurma.");
         }
         let relatorio = docRelatorio.data();
-        console.log("ListaDeAlunosDaTurma. Relatorio id: " + docRelatorio.id);
+        //console.log("ListaDeAlunosDaTurma. Relatorio id: " + docRelatorio.id);
         construirListaDeAlunosDaTurma(relatorio.turmaId).then((planilha) => {
             const csv = json2csv(planilha);
             response.setHeader(
@@ -73,7 +73,7 @@ app.get('/listadealunosdaturma', (request: any, response: any) => {
             response.set("Content-Type", "text/csv");
             response.status(200).send(csv);
             DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
-                console.log("listadealunosdaturma. Deletado  pedidoId: " + pedidoId);
+                //console.log("listadealunosdaturma. Deletado  pedidoId: " + pedidoId);
             })
         }).catch((err) => {
             response.status(403).send('Desculpe. Não foi possível construir a ListaDeAlunosDaTurma' + err);
@@ -87,14 +87,14 @@ app.get('/listadealunosdaturma', (request: any, response: any) => {
 // /listadetarefasdoaluno?pedido=<relatorioId>
 app.get('/listadetarefasdoaluno', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    console.log("ListaDeTarefasDoAluno :: Pedido id: ", pedidoId);
+    //console.log("ListaDeTarefasDoAluno :: Pedido id: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
-            console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeTarefasDoAluno.');
+            //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeTarefasDoAluno.');
             throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para ListaDeTarefasDoAluno.");
         }
         let relatorio = docRelatorio.data();
-        console.log("ListaDeTarefasDoAluno. Relatorio id: " + docRelatorio.id);
+        //console.log("ListaDeTarefasDoAluno. Relatorio id: " + docRelatorio.id);
         construirListaDeTarefasDoAluno(relatorio.usuarioId).then((planilha) => {
             const csv = json2csv(planilha);
             response.setHeader(
@@ -104,7 +104,7 @@ app.get('/listadetarefasdoaluno', (request: any, response: any) => {
             response.set("Content-Type", "text/csv");
             response.status(200).send(csv);
             DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
-                console.log("ListaDeTarefasDoAluno. Deletado  pedidoId: " + pedidoId);
+                //console.log("ListaDeTarefasDoAluno. Deletado  pedidoId: " + pedidoId);
             })
         }).catch((err) => {
             response.status(403).send('Desculpe. Não foi possível construir a ListaDeTarefasDoAluno' + err);
@@ -119,10 +119,10 @@ app.get('/listadetarefasdoaluno', (request: any, response: any) => {
 // /listadetarefasdaavaliacao?pedido=<relatorioId>
 app.get('/listadetarefasdaavaliacao', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    console.log("ListaDeTarefasDaAvaliacao :: relatorioId: ", pedidoId);
+    //console.log("ListaDeTarefasDaAvaliacao :: relatorioId: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
-            console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeTarefasDaAvaliacao.');
+            //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeTarefasDaAvaliacao.');
             throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para ListaDeTarefasDaAvaliacao.");
         }
         let relatorio = docRelatorio.data();
@@ -135,7 +135,7 @@ app.get('/listadetarefasdaavaliacao', (request: any, response: any) => {
             response.set("Content-Type", "text/csv");
             response.status(200).send(csv);
             DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
-                console.log("ListaDeTarefasDaAvaliacao. Deletado  pedidoId: " + pedidoId);
+                //console.log("ListaDeTarefasDaAvaliacao. Deletado  pedidoId: " + pedidoId);
             })
         }).catch((err) => {
             response.status(403).send('Desculpe. Não foi possível construir a ListaDeTarefasDaAvaliacao' + err);
@@ -150,10 +150,10 @@ app.get('/listadetarefasdaavaliacao', (request: any, response: any) => {
 // /listaproblemasdapasta?pedido=<relatorioId>
 app.get('/listaproblemasdapasta', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    console.log("ListaProblemasDaPasta :: relatorioId: ", pedidoId);
+    //console.log("ListaProblemasDaPasta :: relatorioId: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
-            console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaProblemasDaPasta.');
+            //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaProblemasDaPasta.');
             throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para ListaProblemasDaPasta.");
         }
         let relatorio = docRelatorio.data();
@@ -166,7 +166,7 @@ app.get('/listaproblemasdapasta', (request: any, response: any) => {
             response.set("Content-Type", "text/csv");
             response.status(200).send(csv);
             DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
-                console.log("ListaProblemasDaPasta. Deletado  pedidoId: " + pedidoId);
+                //console.log("ListaProblemasDaPasta. Deletado  pedidoId: " + pedidoId);
             })
         }).catch((err) => {
             response.status(403).send('Desculpe. Não foi possível construir a ListaProblemasDaPasta' + err);
@@ -180,10 +180,10 @@ app.get('/listaproblemasdapasta', (request: any, response: any) => {
 // /listadesimulacoesdoproblema?pedido=<relatorioId>
 app.get('/listadesimulacoesdoproblema', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    console.log("ListaDeSimulacoesDoProblema :: relatorioId: ", pedidoId);
+    //console.log("ListaDeSimulacoesDoProblema :: relatorioId: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
-            console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeSimulacoesDoProblema.');
+            //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeSimulacoesDoProblema.');
             throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para ListaDeSimulacoesDoProblema.");
         }
         let relatorio = docRelatorio.data();
@@ -196,7 +196,7 @@ app.get('/listadesimulacoesdoproblema', (request: any, response: any) => {
             response.set("Content-Type", "text/csv");
             response.status(200).send(csv);
             DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
-                console.log("ListaDeSimulacoesDoProblema. Deletado  pedidoId: " + pedidoId);
+                //console.log("ListaDeSimulacoesDoProblema. Deletado  pedidoId: " + pedidoId);
             })
         }).catch((err) => {
             response.status(403).send('Desculpe. Não foi possível construir a ListaDeSimulacoesDoProblema' + err);

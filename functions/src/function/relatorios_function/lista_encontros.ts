@@ -8,13 +8,13 @@ export function construirListaDeEncontros(turmaId: any) {
         planilha.push({ aluno_mat: '', aluno_nome: '' });
 
         DatabaseReferences.db.collection('Usuario').where('turma', 'array-contains', turmaId).orderBy("nome", "asc").get().then((queryListaDeAlunos) => {
-            console.log("construirListaDeEncontros. queryListaDeAlunos.size: " + queryListaDeAlunos.size);
+            //console.log("construirListaDeEncontros. queryListaDeAlunos.size: " + queryListaDeAlunos.size);
             let listaDeAlunos = queryListaDeAlunos.docs;
             // planilha.push({ c: 'foto', d: 'nome', e: 'matricula', f: 'email', g: 'celular', h: 'cracha' });
 
 
             DatabaseReferences.db.collection('Encontro').where('turma.id', '==', turmaId).orderBy("inicio", "asc").get().then((queryListaDeEncontros) => {
-                console.log("construirListaDeEncontros. queryListaDeEncontros.size: " + queryListaDeEncontros.size);
+                //console.log("construirListaDeEncontros. queryListaDeEncontros.size: " + queryListaDeEncontros.size);
                 let listaDeEncontros = queryListaDeEncontros.docs;
                 // let linha: any;
                 // let encontroNome = {};
@@ -25,14 +25,14 @@ export function construirListaDeEncontros(turmaId: any) {
                 listaDeEncontros.forEach((encontroDoc: any) => {
                     let encontro = encontroDoc.data();
                     let encontroId = encontroDoc.id;
-                    console.log("construirListaDeEncontros. encontroMap do encontroId: " + encontroDoc.id);
+                    //console.log("construirListaDeEncontros. encontroMap do encontroId: " + encontroDoc.id);
                     encontroNome[encontroId] = '=HYPERLINK("' + encontro.url + '";"' + encontro.nome + '")';
                     encontroData[encontroId] = encontro.inicio != null ? (encontro.inicio as Timestamp).toDate().toLocaleString() : '';
                 });
 
                 planilha.push(encontroNome);
                 planilha.push(encontroData);
-                console.log("construirListaDeEncontros. encontroMap. Planilha: " + planilha);
+                //console.log("construirListaDeEncontros. encontroMap. Planilha: " + planilha);
 
                 listaDeAlunos.forEach((alunoDoc: any, index: any, array: any) => {
                     const alunoMarcadoMap: { [index: string]: any } = {}
@@ -42,7 +42,7 @@ export function construirListaDeEncontros(turmaId: any) {
                     let alunoId: any = alunoDoc.id;
                     alunoMarcadoMap['aluno_mat'] = aluno.matricula;
                     alunoMarcadoMap['aluno_nome'] = aluno.nome;
-                    console.log("construirListaDeEncontros. alunoId: " + alunoId);
+                    //console.log("construirListaDeEncontros. alunoId: " + alunoId);
 
                     listaDeEncontros.forEach((encontroDoc: any) => {
                         let encontro: any = encontroDoc.data();
@@ -69,7 +69,7 @@ export function construirListaDeEncontros(turmaId: any) {
 
             }).catch((err) => {
                 reject('Desculpe. Collection Turma ou documento não encontrado para construirListaDeEncontros turmaId: ' + turmaId + '. ' + err)
-                console.log("construirListaDeEncontros. Erro. Collection Turma ou documento não encontrado para turmaId: " + turmaId + '. ' + err);
+                //console.log("construirListaDeEncontros. Erro. Collection Turma ou documento não encontrado para turmaId: " + turmaId + '. ' + err);
             });
         }).catch((err) => {
             reject("Desculpe. Nao encontrei lista de usuarios para esta turmaId: " + turmaId + '. ' + err)//return do catch
@@ -87,7 +87,7 @@ export function construirListaDeEncontros(turmaId: any) {
 //         listaDeEncontros.forEach((encontroDoc: any, index: any, array: any) => {
 //             let encontro: any = encontroDoc.data();
 //             let encontroId = encontroDoc.id;
-//             console.log("construirListaDeEncontros. turmaId: " + encontroDoc.id);
+//             //console.log("construirListaDeEncontros. turmaId: " + encontroDoc.id);
 
 //             encontroNome = { [encontroId]: '=HYPERLINK("' + encontro.url + '";"' + encontro.nome + '")' };
 //             encontroData = { [encontroId]: encontro.inicio != null ? (encontro.inicio as Timestamp).toDate().toLocaleString() : '' };
@@ -101,7 +101,7 @@ export function construirListaDeEncontros(turmaId: any) {
 
 //             // listaDeAlunos.forEach((usuarioDoc: any, index: any, array: any) => {
 //             //     let aluno = usuarioDoc.data();
-//             //     console.log("construirListaDeEncontros. aluno: " + usuarioDoc.id);
+//             //     //console.log("construirListaDeEncontros. aluno: " + usuarioDoc.id);
 //             //     planilha.push({ aluno_foto: '=IMAGE("' + aluno.foto.url + '")', aluno_mat: aluno.matricula, aluno_nome: aluno.nome });
 //             // });
 

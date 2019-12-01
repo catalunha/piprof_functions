@@ -6,11 +6,11 @@ export function construirListaDeSimulacoesDoProblema(problemaId: any) {
         let planilha: any = [];
         DatabaseReferences.db.collection('Problema').doc(problemaId).get().then((document: any) => {
             if (!document.exists) {
-                console.log('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeSimulacoesDoProblema problemaId' + problemaId);
+                //console.log('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeSimulacoesDoProblema problemaId' + problemaId);
                 reject('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeSimulacoesDoProblema problemaId' + problemaId);
             }
             let problema = document.data();
-            console.log("construirListaDeSimulacoesDoProblema. problemaId: " + document.id);
+            //console.log("construirListaDeSimulacoesDoProblema. problemaId: " + document.id);
 
             planilha.push({ a: 'pastaId', b: problema.pasta.id });
             planilha.push({ a: 'pasta_nome', b: problema.pasta.nome });
@@ -22,11 +22,11 @@ export function construirListaDeSimulacoesDoProblema(problemaId: any) {
             planilha.push({ a: 'simulacao', b: 'item', c: 'valor' });
 
             DatabaseReferences.db.collection('Simulacao').where('problema.id', '==', problemaId).orderBy("nome", "asc").get().then((queryListaDeSimulacoes) => {
-                console.log("construirListaDeSimulacoesDoProblema. queryListaDeSimulacoes.size: " + queryListaDeSimulacoes.size);
+                //console.log("construirListaDeSimulacoesDoProblema. queryListaDeSimulacoes.size: " + queryListaDeSimulacoes.size);
                 let listaDeSimulacoes = queryListaDeSimulacoes.docs;
 
                 listaDeSimulacoes.forEach((item: any, index: any, array: any) => {
-                    console.log("construirListaDeSimulacoesDoProblema. simulacaoId: " + item.id);
+                    //console.log("construirListaDeSimulacoesDoProblema. simulacaoId: " + item.id);
                     let simulacao = item.data();
                     planilha.push({ a: simulacao.nome, b: 'simulacao_nome', c: simulacao.nome, });
                     planilha.push({ a: simulacao.nome, b: 'simulacao_descricao', c: simulacao.descricao, });
@@ -70,13 +70,13 @@ export function construirListaDeSimulacoesDoProblema(problemaId: any) {
 
             }).catch((err) => {
                 reject("Desculpe. Nao encontrei lista de Tarefas para este problemaId" + problemaId + '. ' + err)//return do catch
-                console.log("Desculpe. Nao encontrei lista de Tarefas para este problemaId" + problemaId + '. ' + err);
+                //console.log("Desculpe. Nao encontrei lista de Tarefas para este problemaId" + problemaId + '. ' + err);
 
             });
 
         }).catch((err) => {
             reject('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeSimulacoesDoProblema problemaId' + problemaId + '. ' + err)
-            console.log("construirListaDeSimulacoesDoProblema. Erro. Collection Usuario ou documento não encontrado para problemaId: " + problemaId + '. ' + err);
+            //console.log("construirListaDeSimulacoesDoProblema. Erro. Collection Usuario ou documento não encontrado para problemaId: " + problemaId + '. ' + err);
         });
 
     });

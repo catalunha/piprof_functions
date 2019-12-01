@@ -7,11 +7,11 @@ export function construirListaDeTarefasDoAluno(usuarioId: any) {
         let planilha: any = [];
         DatabaseReferences.db.collection('Usuario').doc(usuarioId).get().then((document: any) => {
             if (!document.exists) {
-                console.log('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeTarefasDoAluno usuarioId' + usuarioId);
+                //console.log('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeTarefasDoAluno usuarioId' + usuarioId);
                 reject('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeTarefasDoAluno usuarioId' + usuarioId);
             }
             let doc = document.data();
-            console.log("construirListaDeTarefasDoAluno. usuarioId: " + document.id);
+            //console.log("construirListaDeTarefasDoAluno. usuarioId: " + document.id);
 
             planilha.push({ a: 'alunoId', b: usuarioId });
             planilha.push({ a: 'nome', b: doc.nome });
@@ -22,12 +22,12 @@ export function construirListaDeTarefasDoAluno(usuarioId: any) {
             planilha.push({ a: 'foto', b: '=IMAGE("' + doc.foto.url + '")' });
 
             DatabaseReferences.db.collection('Tarefa').where('aluno.id', '==', usuarioId).orderBy("inicio", "asc").get().then((queryListaDeTarefas) => {
-                console.log("construirListaDeTarefasDoAluno. queryListaDeTarefas.size: " + queryListaDeTarefas.size);
+                //console.log("construirListaDeTarefasDoAluno. queryListaDeTarefas.size: " + queryListaDeTarefas.size);
                 let listaDeTarefas = queryListaDeTarefas.docs;
                 planilha.push({ c: 'avaliacao', d: 'questao', e: 'item', f: 'valor', });
                 listaDeTarefas.forEach((item: any, index: any, array: any) => {
                     let tarefa = item.data();
-                    console.log("construirListaDeTarefasDoAluno. tarefa: " + item.id);
+                    //console.log("construirListaDeTarefasDoAluno. tarefa: " + item.id);
                     planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'id', f: tarefa.id });
                     planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'aberta', f: tarefa.aberta });
                     planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'avaliacao', f: tarefa.avaliacao.nome });
@@ -44,14 +44,14 @@ export function construirListaDeTarefasDoAluno(usuarioId: any) {
                     planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'modificado', f: tarefa.modificado != null ? (tarefa.modificado as Timestamp).toDate().toLocaleString() : '' });
 
                     for (const [key, value] of Object.entries(tarefa.variavel)) {
-                        console.log(key);
+                        //console.log(key);
                         let item: any = value;
                         planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'variavel_nome', f: item.nome });
                         planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'variavel_valor', f: item.valor });
                     }
                     let nota = '=';
                     for (const [key, value] of Object.entries(tarefa.gabarito)) {
-                        console.log(key);
+                        //console.log(key);
                         let item: any = value;
                         nota = nota + '+' + item.nota;
 
@@ -74,13 +74,13 @@ export function construirListaDeTarefasDoAluno(usuarioId: any) {
 
             }).catch((err) => {
                 reject("Desculpe. Nao encontrei lista de Tarefas para este usuarioId" + usuarioId + '. ' + err)//return do catch
-                console.log("Desculpe. Nao encontrei lista de Tarefas para este usuarioId" + usuarioId + '. ' + err);
+                //console.log("Desculpe. Nao encontrei lista de Tarefas para este usuarioId" + usuarioId + '. ' + err);
 
             });
 
         }).catch((err) => {
             reject('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeTarefasDoAluno usuarioId' + usuarioId+ '. ' + err)
-            console.log("construirListaDeTarefasDoAluno. Erro. Collection Usuario ou documento não encontrado para usuarioId: " + usuarioId+ '. ' + err);
+            //console.log("construirListaDeTarefasDoAluno. Erro. Collection Usuario ou documento não encontrado para usuarioId: " + usuarioId+ '. ' + err);
         });
 
     });

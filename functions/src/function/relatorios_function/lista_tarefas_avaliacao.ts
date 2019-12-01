@@ -7,11 +7,11 @@ export function construirListaDeTarefasDaAvaliacao(avaliacaoId: any) {
         let planilha: any = [];
         DatabaseReferences.db.collection('Avaliacao').doc(avaliacaoId).get().then((document: any) => {
             if (!document.exists) {
-                console.log('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeTarefasDaAvaliacao avaliacaoId' + avaliacaoId);
+                //console.log('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeTarefasDaAvaliacao avaliacaoId' + avaliacaoId);
                 reject('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeTarefasDaAvaliacao avaliacaoId' + avaliacaoId);
             }
             let avaliacao = document.data();
-            console.log("construirListaDeTarefasDaAvaliacao. avaliacaoId: " + document.id);
+            //console.log("construirListaDeTarefasDaAvaliacao. avaliacaoId: " + document.id);
 
             planilha.push({ a: 'turmaId', b: avaliacao.turma.id });
             planilha.push({ a: 'turma_nome', b: avaliacao.turma.nome });
@@ -22,7 +22,7 @@ export function construirListaDeTarefasDaAvaliacao(avaliacaoId: any) {
             planilha.push({ a: 'fim', b: avaliacao.fim != null ? (avaliacao.fim as Timestamp).toDate().toLocaleString() : '' });
 
             DatabaseReferences.db.collection('Tarefa').where('avaliacao.id', '==', avaliacaoId).orderBy("inicio", "asc").get().then((queryListaDeTarefas) => {
-                console.log("construirListaDeTarefasDaAvaliacao. queryListaDeTarefas.size: " + queryListaDeTarefas.size);
+                //console.log("construirListaDeTarefasDaAvaliacao. queryListaDeTarefas.size: " + queryListaDeTarefas.size);
                 let listaDeTarefas = queryListaDeTarefas.docs;
                 planilha.push({
                     c: 'avaliacao',
@@ -37,11 +37,11 @@ export function construirListaDeTarefasDaAvaliacao(avaliacaoId: any) {
                     l: 'nota',
                 });
                 listaDeTarefas.forEach((item: any, index: any, array: any) => {
-                    console.log("construirListaDeTarefasDaAvaliacao. tarefa: " + item.id);
+                    //console.log("construirListaDeTarefasDaAvaliacao. tarefa: " + item.id);
                     let tarefa = item.data();
                     let nota = '=';
                     for (const [key, value] of Object.entries(tarefa.gabarito)) {
-                        console.log(key);
+                        //console.log(key);
                         let item: any = value;
                         nota = nota + '+' + item.nota;
                     }
@@ -65,13 +65,13 @@ export function construirListaDeTarefasDaAvaliacao(avaliacaoId: any) {
 
             }).catch((err) => {
                 reject("Desculpe. Nao encontrei lista de Tarefas para este avaliacaoId" + avaliacaoId + '. ' + err)//return do catch
-                console.log("Desculpe. Nao encontrei lista de Tarefas para este avaliacaoId" + avaliacaoId + '. ' + err);
+                //console.log("Desculpe. Nao encontrei lista de Tarefas para este avaliacaoId" + avaliacaoId + '. ' + err);
 
             });
 
         }).catch((err) => {
             reject('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeTarefasDaAvaliacao avaliacaoId' + avaliacaoId + '. ' + err)
-            console.log("construirListaDeTarefasDaAvaliacao. Erro. Collection Usuario ou documento não encontrado para avaliacaoId: " + avaliacaoId + '. ' + err);
+            //console.log("construirListaDeTarefasDaAvaliacao. Erro. Collection Usuario ou documento não encontrado para avaliacaoId: " + avaliacaoId + '. ' + err);
         });
 
     });

@@ -5,52 +5,52 @@ import { Timestamp } from "@google-cloud/firestore";
 export function construirListaDeEncontros(turmaId: any) {
     return new Promise((resolve, reject) => {
         let planilha: any = [];
-        planilha.push({ aluno_mat: '',aluno_nome:'' });
+        planilha.push({ aluno_mat: '', aluno_nome: '' });
 
-        DatabaseReferences.db.collection('Usuario').where('turma', 'array-contains', turmaId).get().then((queryListaDeAlunos) => {
+        DatabaseReferences.db.collection('Usuario').where('turma', 'array-contains', turmaId).orderBy("nome", "asc").get().then((queryListaDeAlunos) => {
             console.log("construirListaDeEncontros. queryListaDeAlunos.size: " + queryListaDeAlunos.size);
-            let listaDeAlunos = queryListaDeAlunos.docs.sort();
+            let listaDeAlunos = queryListaDeAlunos.docs;
             // planilha.push({ c: 'foto', d: 'nome', e: 'matricula', f: 'email', g: 'celular', h: 'cracha' });
 
 
-            DatabaseReferences.db.collection('Encontro').where('turma.id', '==', turmaId).get().then((queryListaDeEncontros) => {
+            DatabaseReferences.db.collection('Encontro').where('turma.id', '==', turmaId).orderBy("inicio", "asc").get().then((queryListaDeEncontros) => {
                 console.log("construirListaDeEncontros. queryListaDeEncontros.size: " + queryListaDeEncontros.size);
                 let listaDeEncontros = queryListaDeEncontros.docs;
                 // let linha: any;
                 // let encontroNome = {};
                 // let encontroData = {};
-                const encontroNome: {[index: string]:any} = {}
-                const encontroData: {[index: string]:any} = {}
+                const encontroNome: { [index: string]: any } = {}
+                const encontroData: { [index: string]: any } = {}
 
                 listaDeEncontros.forEach((encontroDoc: any) => {
                     let encontro = encontroDoc.data();
                     let encontroId = encontroDoc.id;
                     console.log("construirListaDeEncontros. encontroMap do encontroId: " + encontroDoc.id);
-                    encontroNome[encontroId]='=HYPERLINK("' + encontro.url + '";"' + encontro.nome + '")';
-                    encontroData[encontroId]= encontro.inicio != null ? (encontro.inicio as Timestamp ).toDate().toLocaleString() : '';
+                    encontroNome[encontroId] = '=HYPERLINK("' + encontro.url + '";"' + encontro.nome + '")';
+                    encontroData[encontroId] = encontro.inicio != null ? (encontro.inicio as Timestamp).toDate().toLocaleString() : '';
                 });
 
                 planilha.push(encontroNome);
                 planilha.push(encontroData);
                 console.log("construirListaDeEncontros. encontroMap. Planilha: " + planilha);
-                
+
                 listaDeAlunos.forEach((alunoDoc: any, index: any, array: any) => {
-                    const alunoMarcadoMap: {[index: string]:any} = {}
+                    const alunoMarcadoMap: { [index: string]: any } = {}
 
                     // let alunoMarcadoMap = {};
                     let aluno: any = alunoDoc.data();
                     let alunoId: any = alunoDoc.id;
-                    alunoMarcadoMap['aluno_mat']= aluno.matricula ;
-                    alunoMarcadoMap['aluno_nome']= aluno.nome ;
+                    alunoMarcadoMap['aluno_mat'] = aluno.matricula;
+                    alunoMarcadoMap['aluno_nome'] = aluno.nome;
                     console.log("construirListaDeEncontros. alunoId: " + alunoId);
 
                     listaDeEncontros.forEach((encontroDoc: any) => {
                         let encontro: any = encontroDoc.data();
                         let encontroId: any = encontroDoc.id;
                         if (encontro.aluno.includes(alunoId)) {
-                            alunoMarcadoMap[encontroId]= "P" ;
-                        }else{
-                            alunoMarcadoMap[encontroId]= "a" ;
+                            alunoMarcadoMap[encontroId] = "P";
+                        } else {
+                            alunoMarcadoMap[encontroId] = "a";
                         }
                     });
                     planilha.push(alunoMarcadoMap);
@@ -68,11 +68,11 @@ export function construirListaDeEncontros(turmaId: any) {
                 // })
 
             }).catch((err) => {
-                reject('Desculpe. Collection Turma ou documento não encontrado para construirListaDeEncontros turmaId' + turmaId)
-                console.log("construirListaDeEncontros. Erro. Collection Turma ou documento não encontrado para turmaId: " + turmaId);
+                reject('Desculpe. Collection Turma ou documento não encontrado para construirListaDeEncontros turmaId: ' + turmaId + '. ' + err)
+                console.log("construirListaDeEncontros. Erro. Collection Turma ou documento não encontrado para turmaId: " + turmaId + '. ' + err);
             });
         }).catch((err) => {
-            reject("Desculpe. Nao encontrei lista de usuarios para esta turmaId" + turmaId + '. ' + err)//return do catch
+            reject("Desculpe. Nao encontrei lista de usuarios para esta turmaId: " + turmaId + '. ' + err)//return do catch
         });
     });
 

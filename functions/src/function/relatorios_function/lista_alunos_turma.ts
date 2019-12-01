@@ -19,7 +19,7 @@ export function construirListaDeAlunosDaTurma(turmaId: any) {
             planilha.push({ a: 'componente', b: doc.componente });
             planilha.push({ a: 'descricao', b: doc.descricao });
 
-            DatabaseReferences.db.collection('Usuario').where('turma', 'array-contains', turmaId).get().then((queryListaDeAlunos) => {
+            DatabaseReferences.db.collection('Usuario').where('turma', 'array-contains', turmaId).orderBy("nome", "asc").get().then((queryListaDeAlunos) => {
                 console.log("construirListaDeAlunoDaTurma. queryListaDeAlunos.size: " + queryListaDeAlunos.size);
                 let listaDeAlunos = queryListaDeAlunos.docs;
                 planilha.push({ c: 'foto', d: 'nome', e: 'matricula', f: 'email', g: 'celular', h: 'cracha' });
@@ -33,12 +33,12 @@ export function construirListaDeAlunosDaTurma(turmaId: any) {
                 });
 
             }).catch((err) => {
-                reject("Desculpe. Nao encontrei lista de usuarios para esta turmaId" + turmaId + '. ' + err)//return do catch
+                reject("Desculpe. Nao encontrei lista de usuarios para esta turmaId: " + turmaId + '. ' + err)//return do catch
             });
 
         }).catch((err) => {
-            reject('Desculpe. Collection Turma ou documento não encontrado para construirListaDeAlunoDaTurma turmaId' + turmaId)
-            console.log("construirListaDeAlunoDaTurma. Erro. Collection Turma ou documento não encontrado para turmaId: " + turmaId);
+            reject('Desculpe. Collection Turma ou documento não encontrado para construirListaDeAlunoDaTurma turmaId: ' + turmaId+ '. ' + err)
+            console.log("construirListaDeAlunoDaTurma. Erro. Collection Turma ou documento não encontrado para turmaId: " + turmaId+ '. ' + err);
         });
 
     });

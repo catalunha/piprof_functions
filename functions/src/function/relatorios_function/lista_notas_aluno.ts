@@ -21,7 +21,7 @@ export function construirListaDeTarefasDoAluno(usuarioId: any) {
             planilha.push({ a: 'celular', b: doc.celular });
             planilha.push({ a: 'foto', b: '=IMAGE("' + doc.foto.url + '")' });
 
-            DatabaseReferences.db.collection('Tarefa').where('aluno.id', '==', usuarioId).get().then((queryListaDeTarefas) => {
+            DatabaseReferences.db.collection('Tarefa').where('aluno.id', '==', usuarioId).orderBy("inicio", "asc").get().then((queryListaDeTarefas) => {
                 console.log("construirListaDeTarefasDoAluno. queryListaDeTarefas.size: " + queryListaDeTarefas.size);
                 let listaDeTarefas = queryListaDeTarefas.docs;
                 planilha.push({ c: 'avaliacao', d: 'questao', e: 'item', f: 'valor', });
@@ -74,11 +74,13 @@ export function construirListaDeTarefasDoAluno(usuarioId: any) {
 
             }).catch((err) => {
                 reject("Desculpe. Nao encontrei lista de Tarefas para este usuarioId" + usuarioId + '. ' + err)//return do catch
+                console.log("Desculpe. Nao encontrei lista de Tarefas para este usuarioId" + usuarioId + '. ' + err);
+
             });
 
         }).catch((err) => {
-            reject('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeTarefasDoAluno usuarioId' + usuarioId)
-            console.log("construirListaDeTarefasDoAluno. Erro. Collection Usuario ou documento não encontrado para usuarioId: " + usuarioId);
+            reject('Desculpe. Collection Usuario ou documento não encontrado para construirListaDeTarefasDoAluno usuarioId' + usuarioId+ '. ' + err)
+            console.log("construirListaDeTarefasDoAluno. Erro. Collection Usuario ou documento não encontrado para usuarioId: " + usuarioId+ '. ' + err);
         });
 
     });

@@ -8,6 +8,7 @@ import { construirListaDeTarefasDoAluno } from "./relatorios_function/lista_nota
 import { construirListaDeEncontros } from "./relatorios_function/lista_encontros";
 import { construirListaDeTarefasDaAvaliacao } from "./relatorios_function/lista_tarefas_avaliacao";
 import { construirListaProblemasDaPasta } from "./relatorios_function/lista_problemas_pasta";
+import { construirListaDeSimulacoesDoProblema } from "./relatorios_function/lista_simulacao_problema";
 
 const express = require('express');
 const cors = require('cors')({ origin: true });
@@ -172,5 +173,35 @@ app.get('/listaproblemasdapasta', (request: any, response: any) => {
         });
     }).catch((err) => {
         response.status(403).send('Desculpe. Não existe pedido autenticado para ListaProblemasDaPasta.' + err);
+    });
+});
+
+
+// /listadesimulacoesdoproblema?pedido=<relatorioId>
+app.get('/listadesimulacoesdoproblema', (request: any, response: any) => {
+    let pedidoId = request.query.pedido;
+    console.log("ListaDeSimulacoesDoProblema :: relatorioId: ", pedidoId);
+    DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
+        if (!docRelatorio.exists) {
+            console.log('Desculpe. Collection Relatorio ou documento não encontrado para ListaDeSimulacoesDoProblema.');
+            throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para ListaDeSimulacoesDoProblema.");
+        }
+        let relatorio = docRelatorio.data();
+        construirListaDeSimulacoesDoProblema(relatorio.problemaId).then((planilha) => {
+            const csv = json2csv(planilha);
+            response.setHeader(
+                "Content-disposition",
+                "attachment; filename=ListaDeSimulacoesDoProblema.csv"
+            );
+            response.set("Content-Type", "text/csv");
+            response.status(200).send(csv);
+            DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
+                console.log("ListaDeSimulacoesDoProblema. Deletado  pedidoId: " + pedidoId);
+            })
+        }).catch((err) => {
+            response.status(403).send('Desculpe. Não foi possível construir a ListaDeSimulacoesDoProblema' + err);
+        });
+    }).catch((err) => {
+        response.status(403).send('Desculpe. Não existe pedido autenticado para ListaDeSimulacoesDoProblema.' + err);
     });
 });

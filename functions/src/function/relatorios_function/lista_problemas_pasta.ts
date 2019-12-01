@@ -1,5 +1,4 @@
 import DatabaseReferences from "../../database-references";
-import { Timestamp } from "@google-cloud/firestore";
 
 
 export function construirListaProblemasDaPasta(pastaId: any) {
@@ -23,19 +22,19 @@ export function construirListaProblemasDaPasta(pastaId: any) {
                 planilha.push({
                     c: 'nome',
                     d: 'fonte',
-                    e: 'simulacao',
-                    f: 'url',
+                    e: 'url',
+                    f: 'solucao',
                     g: 'simulacoes',
 
                 });
                 listaDeProblemas.forEach((item: any, index: any, array: any) => {
-                    console.log("construirListaProblemasDaPasta. tarefa: " + item.id);
+                    console.log("construirListaProblemasDaPasta. problemaId: " + item.id);
                     let problema = item.data();
                     planilha.push({
                         c: problema.nome,
                         d: problema.descricao,
-                        e: '=HYPERLINK("' + problema.solucao + '";"Link para o arquivo")',
-                        f: '=HYPERLINK("' + problema.url + '";"Link para o arquivo")',
+                        e: '=HYPERLINK("' + problema.url + '";"Link para o arquivo")',
+                        f: '=HYPERLINK("' + problema.solucao + '";"Link para o arquivo")',
                         g: problema.simulacaoNumero,
                     });
 

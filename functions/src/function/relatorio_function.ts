@@ -219,14 +219,14 @@ app.get('/tarefaimpressa', (request: any, response: any) => {
             throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para TarefaImpressa.");
         }
         let relatorio = docRelatorio.data();
-        construirTarefaImpressa(relatorio.tarefaId).then((planilha) => {
-            const csv = json2csv(planilha);
+        construirTarefaImpressa(relatorio.tarefaId).then((markdown) => {
+            // const csv = json2csv(planilha);
             response.setHeader(
                 "Content-disposition",
                 "attachment; filename=TarefaImpressa.md"
             );
             response.set("Content-Type", "text/plain");
-            response.status(200).send(csv);
+            response.status(200).send(markdown);
             DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
                 //console.log("TarefaImpressa. Deletado  pedidoId: " + pedidoId);
             })

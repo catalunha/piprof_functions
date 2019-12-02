@@ -4,11 +4,12 @@
 // admin.initializeApp();
 import DatabaseReferences from "../database-references";
 import { construirListaDeAlunosDaTurma } from "./relatorios_function/lista_alunos_turma";
-import { construirListaDeEncontros } from "./relatorios_function/lista_encontros";
 import { construirListaDeTarefasDaAvaliacao } from "./relatorios_function/lista_tarefas_avaliacao";
 import { construirListaProblemasDaPasta } from "./relatorios_function/lista_problemas_pasta";
 import { construirListaDeSimulacoesDoProblema } from "./relatorios_function/lista_simulacao_problema";
 import { construirListaDeTarefasDoAluno } from "./relatorios_function/lista_tarefas_aluno";
+import { construirListaDeEncontros } from "./relatorios_function/lista_encontros";
+import { construirTarefaImpressa } from "./relatorios_function/tarefa_impressa";
 
 const express = require('express');
 const cors = require('cors')({ origin: true });
@@ -201,5 +202,38 @@ app.get('/listadesimulacoesdoproblema', (request: any, response: any) => {
         });
     }).catch((err) => {
         response.status(403).send('Desculpe. Não existe pedido autenticado para ListaDeSimulacoesDoProblema.' + err);
+    });
+});
+
+
+
+
+
+// /tarefaimpressa?pedido=<relatorioId>
+app.get('/tarefaimpressa', (request: any, response: any) => {
+    let pedidoId = request.query.pedido;
+    console.log("TarefaImpressa :: relatorioId: ", pedidoId);
+    DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
+        if (!docRelatorio.exists) {
+            //console.log('Desculpe. Collection Relatorio ou documento não encontrado para TarefaImpressa.');
+            throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para TarefaImpressa.");
+        }
+        let relatorio = docRelatorio.data();
+        construirTarefaImpressa(relatorio.tarefaId).then((planilha) => {
+            const csv = json2csv(planilha);
+            response.setHeader(
+                "Content-disposition",
+                "attachment; filename=TarefaImpressa.md"
+            );
+            response.set("Content-Type", "text/plain");
+            response.status(200).send(csv);
+            DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
+                //console.log("TarefaImpressa. Deletado  pedidoId: " + pedidoId);
+            })
+        }).catch((err) => {
+            response.status(403).send('Desculpe. Não foi possível construir a TarefaImpressa' + err);
+        });
+    }).catch((err) => {
+        response.status(403).send('Desculpe. Não existe pedido autenticado para TarefaImpressa.' + err);
     });
 });

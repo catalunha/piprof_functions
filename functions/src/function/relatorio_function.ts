@@ -51,7 +51,6 @@ app.get('/listadeencontros', (request: any, response: any) => {
     });
 });
 
-
 // /listadealunosdaturma?pedido=<relatorioId>
 app.get('/listadealunosdaturma', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
@@ -81,7 +80,6 @@ app.get('/listadealunosdaturma', (request: any, response: any) => {
         response.status(403).send('Desculpe. Não existe pedido autenticado para ListaDeAlunosDaTurma.' + err);
     });
 });
-
 
 // /listadetarefasdoaluno?pedido=<relatorioId>
 app.get('/listadetarefasdoaluno', (request: any, response: any) => {
@@ -113,8 +111,6 @@ app.get('/listadetarefasdoaluno', (request: any, response: any) => {
     });
 });
 
-
-
 // /listadetarefasdaavaliacao?pedido=<relatorioId>
 app.get('/listadetarefasdaavaliacao', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
@@ -143,8 +139,6 @@ app.get('/listadetarefasdaavaliacao', (request: any, response: any) => {
         response.status(403).send('Desculpe. Não existe pedido autenticado para ListaDeTarefasDaAvaliacao.' + err);
     });
 });
-
-
 
 // /listaproblemasdapasta?pedido=<relatorioId>
 app.get('/listaproblemasdapasta', (request: any, response: any) => {
@@ -175,7 +169,6 @@ app.get('/listaproblemasdapasta', (request: any, response: any) => {
     });
 });
 
-
 // /listadesimulacoesdoproblema?pedido=<relatorioId>
 app.get('/listadesimulacoesdoproblema', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
@@ -204,10 +197,6 @@ app.get('/listadesimulacoesdoproblema', (request: any, response: any) => {
         response.status(403).send('Desculpe. Não existe pedido autenticado para ListaDeSimulacoesDoProblema.' + err);
     });
 });
-
-
-
-
 
 // /tarefaimpressa?pedido=<relatorioId>
 app.get('/tarefaimpressa', (request: any, response: any) => {

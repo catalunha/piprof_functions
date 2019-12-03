@@ -28,7 +28,7 @@ export function construirListaDeTarefasDoAluno(usuarioId: any) {
                 listaDeTarefas.forEach((item: any, index: any, array: any) => {
                     let tarefa = item.data();
                     //console.log("construirListaDeTarefasDoAluno. tarefa: " + item.id);
-                    planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'id', f: tarefa.id });
+                    planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'id', f: item.id });
                     planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'aberta', f: tarefa.aberta });
                     planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'avaliacao', f: tarefa.avaliacao.nome });
                     planilha.push({ c: tarefa.avaliacao.nome, d: tarefa.questao.numero, e: 'questao', f: tarefa.questao.numero });

@@ -12,9 +12,9 @@ export function construirTarefaImpressa(tarefaId: any) {
                 reject('Desculpe. Collection Usuario ou documento não encontrado para construirListaProblemasDaPasta tarefaId' + document.id);
             }
             let tarefa = document.data();
-            markdown.push('# Tarefa numero' + tarefa.questao.numero);
+            markdown.push('# Tarefa numero: ' + tarefa.questao.numero);
             markdown.push('## Dados da aplicação:');
-            markdown.push('- id: ' + tarefa.id);
+            markdown.push('- id: ' + document.id);
             markdown.push('- avaliacao: ' + tarefa.avaliacao.nome);
             markdown.push('- questao: ' + tarefa.questao.numero);
             markdown.push('- problema_nome: ' + tarefa.problema.nome);
@@ -22,12 +22,13 @@ export function construirTarefaImpressa(tarefaId: any) {
             markdown.push('- tempo: ' + tarefa.tempo);
             markdown.push('- tentativa: ' + tarefa.tentativa);
             markdown.push('- tentou: ' + tarefa.tentou);
-            markdown.push('- inicio: ' + tarefa.inicio != null ? (tarefa.inicio as Timestamp).toDate().toLocaleString() : '');
-            markdown.push('- iniciou: ' + tarefa.iniciou != null ? (tarefa.iniciou as Timestamp).toDate().toLocaleString() : '');
-            markdown.push('- enviou: ' + tarefa.enviou != null ? (tarefa.enviou as Timestamp).toDate().toLocaleString() : '');
-            markdown.push('- fim: ' + tarefa.fim != null ? (tarefa.fim as Timestamp).toDate().toLocaleString() : '');
-            markdown.push('- modificado: ' + tarefa.modificado != null ? (tarefa.modificado as Timestamp).toDate().toLocaleString() : '');
+            markdown.push('- inicio: ' + (tarefa.inicio != null ? (tarefa.inicio as Timestamp).toDate().toLocaleString() : ''));
+            markdown.push('- iniciou: ' + (tarefa.iniciou != null ? (tarefa.iniciou as Timestamp).toDate().toLocaleString() : ''));
+            markdown.push('- enviou: ' + (tarefa.enviou != null ? (tarefa.enviou as Timestamp).toDate().toLocaleString() : ''));
+            markdown.push('- fim: ' + (tarefa.fim != null ? (tarefa.fim as Timestamp).toDate().toLocaleString() : ''));
+            markdown.push('- modificado: ' + (tarefa.modificado != null ? (tarefa.modificado as Timestamp).toDate().toLocaleString() : ''));
 
+            markdown.push('');
             markdown.push('## Problema proposto:');
 
             markdown.push('Considere o problema proposto apresentado neste link, [clique aqui](' + tarefa.problema.url + '), e reproduzida no Anexo I, no final deste texto.');
@@ -50,6 +51,8 @@ export function construirTarefaImpressa(tarefaId: any) {
                     }
                 })
             }
+            markdown.push('');
+
             markdown.push('## Resposta:');
             if (tarefa.gabarito != null && Object.entries(tarefa.gabarito).length > 0) {
                 Object.entries(tarefa.gabarito).sort((a: any, b: any) => { return a[1].ordem - b[1].ordem }).forEach((array: any) => {
@@ -67,6 +70,8 @@ export function construirTarefaImpressa(tarefaId: any) {
                     }
                 })
             }
+            markdown.push('');
+
             markdown.push('## Gabarito:');
             if (tarefa.gabarito != null && Object.entries(tarefa.gabarito).length > 0) {
                 Object.entries(tarefa.gabarito).sort((a: any, b: any) => { return a[1].ordem - b[1].ordem }).forEach((array: any) => {
@@ -84,6 +89,7 @@ export function construirTarefaImpressa(tarefaId: any) {
                     }
                 })
             }
+            markdown.push('');
 
             markdown.push('## Anexo I:');
             markdown.push('<iframe src="' + tarefa.problema.url + '" height="1280" width="100%"></iframe>');

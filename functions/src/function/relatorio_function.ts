@@ -9,17 +9,19 @@ import { construirListaProblemasDaPasta } from "./relatorios_function/lista_prob
 import { construirListaDeSimulacoesDoProblema } from "./relatorios_function/lista_simulacao_problema";
 import { construirListaDeTarefasDoAluno } from "./relatorios_function/lista_tarefas_aluno";
 import { construirListaDeEncontros } from "./relatorios_function/lista_encontros";
-import { construirTarefaImpressa } from "./relatorios_function/tarefa_impressa";
+import { construirImprimirTarefaMd } from "./relatorios_function/imprimir_tarefa_md";
+import { construirImprimirTarefaPdf } from "./relatorios_function/imprimir_tarefa_pdf";
 
 const express = require('express');
 const cors = require('cors')({ origin: true });
 export const app = express();
-
 app.use(cors);
+var pdf = require('html-pdf');
+const json2csv = require("json2csv").parse;
+
 // https://www.npmjs.com/package/json-2-csv-ts
 // https://www.npmjs.com/package/json-2-csv
 // https://www.npmjs.com/package/json2csv
-const json2csv = require("json2csv").parse;
 
 // /listadeencontros?pedido=<relatorioId>
 app.get('/listadeencontros', (request: any, response: any) => {
@@ -198,31 +200,66 @@ app.get('/listadesimulacoesdoproblema', (request: any, response: any) => {
     });
 });
 
-// /tarefaimpressa?pedido=<relatorioId>
-app.get('/tarefaimpressa', (request: any, response: any) => {
+// /tarefamd?pedido=<relatorioId>
+app.get('/imprimirtarefa', (request: any, response: any) => {
     let pedidoId = request.query.pedido;
-    console.log("TarefaImpressa :: relatorioId: ", pedidoId);
+    console.log("ImprimirTarefa :: relatorioId: ", pedidoId);
     DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
         if (!docRelatorio.exists) {
-            //console.log('Desculpe. Collection Relatorio ou documento não encontrado para TarefaImpressa.');
-            throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para TarefaImpressa.");
+            //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ImprimirTarefa.');
+            throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para ImprimirTarefa.");
         }
         let relatorio = docRelatorio.data();
-        construirTarefaImpressa(relatorio.tarefaId).then((markdown) => {
+        construirImprimirTarefaMd(relatorio.tarefaId).then((markdown) => {
             // const csv = json2csv(planilha);
             response.setHeader(
                 "Content-disposition",
-                "attachment; filename=TarefaImpressa.md"
+                "attachment; filename=ImprimirTarefa.md"
             );
             response.set("Content-Type", "text/plain");
             response.status(200).send(markdown);
             DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
-                //console.log("TarefaImpressa. Deletado  pedidoId: " + pedidoId);
+                //console.log("ImprimirTarefa. Deletado  pedidoId: " + pedidoId);
             })
         }).catch((err) => {
-            response.status(403).send('Desculpe. Não foi possível construir a TarefaImpressa' + err);
+            response.status(403).send('Desculpe. Não foi possível construir a ImprimirTarefa' + err);
         });
     }).catch((err) => {
-        response.status(403).send('Desculpe. Não existe pedido autenticado para TarefaImpressa.' + err);
+        response.status(403).send('Desculpe. Não existe pedido autenticado para ImprimirTarefa.' + err);
+    });
+});
+
+
+// /tarefaimpressa?pedido=<relatorioId>
+app.get('/imprimirtarefapdf', (request: any, response: any) => {
+    let pedidoId = request.query.pedido;
+    console.log("ImprimirTarefaPdf :: relatorioId: ", pedidoId);
+    DatabaseReferences.db.collection('Relatorio').doc(pedidoId).get().then((docRelatorio: any) => {
+        if (!docRelatorio.exists) {
+            //console.log('Desculpe. Collection Relatorio ou documento não encontrado para ImprimirTarefaPdf.');
+            throw new Error("Desculpe. Collection Relatorio ou documento não encontrado para ImprimirTarefaPdf.");
+        }
+        let relatorio = docRelatorio.data();
+        construirImprimirTarefaPdf(relatorio.tarefaId).then((html:any) => {
+            // const csv = json2csv(planilha);
+            response.setHeader(
+                "Content-disposition",
+                "attachment; filename=ImprimirTarefa.pdf"
+            );
+            pdf.create(html[0], html[1]).toBuffer((err: any, buffer: any): any => {
+                if (err) {
+                    return console.log(err.stack)
+                }
+                response.setHeader('Content-type', 'application/pdf')
+                response.status(200).send(buffer)
+            });
+            DatabaseReferences.db.collection('Relatorio').doc(pedidoId).delete().then(() => {
+                //console.log("ImprimirTarefaPdf. Deletado  pedidoId: " + pedidoId);
+            })
+        }).catch((err) => {
+            response.status(403).send('Desculpe. Não foi possível construir a ImprimirTarefaPdf' + err);
+        });
+    }).catch((err) => {
+        response.status(403).send('Desculpe. Não existe pedido autenticado para ImprimirTarefaPdf.' + err);
     });
 });

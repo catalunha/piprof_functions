@@ -2,7 +2,7 @@ import DatabaseReferences from "../../database-references";
 import { Timestamp } from "@google-cloud/firestore";
 
 
-export function construirTarefaImpressa(tarefaId: any) {
+export function construirImprimirTarefaMd(tarefaId: any) {
     return new Promise((resolve, reject) => {
         let markdown: any = [];
 

@@ -1,6 +1,8 @@
 import DatabaseReferences from "../../database-references";
 import { Timestamp } from "@google-cloud/firestore";
 
+// conversor online de pdf para html para ser alterado. este conversor é mais limpo de codigos
+// https://www.htmlpublish.com/
 
 export function construirImprimirTarefaPdf(tarefaId: any) {
     return new Promise((resolve, reject) => {
@@ -21,8 +23,7 @@ export function construirImprimirTarefaPdf(tarefaId: any) {
             html.push('<H1> Tarefa numero: ' + tarefa.questao.numero + '</H1>');
             html.push('<H2> Dados da aplicação:' + '</H2>');
             html.push('<ul>');
-
-            html.push('<li>id: ' + document.id + '</li>');
+            html.push(`<li>id: ${document.id} </li>`);
             html.push('<li>avaliacao: ' + tarefa.avaliacao.nome + '</li>');
             html.push('<li>questao: ' + tarefa.questao.numero + '</li>');
             html.push('<li>problema_nome: ' + tarefa.problema.nome + '</li>');
